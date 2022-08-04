@@ -1,0 +1,50 @@
+form {
+    text-align: center;
+    border: 1px solid #e2dddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: auto;
+    max-width: 450px;
+    background-color: #f2f2f2;
+    box-shadow: #ddd 0 3px 5px;
+}
+
+.form-container {
+    margin: 5px;
+}
+
+form div {
+    margin: 10px;
+}
+
+input, button {
+    border: 1px solid #e2dddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+}
+
+button {
+    transition: all 200ms ease-in-out;
+    font-weight: bold;
+    color: #4E5166;
+    background-color: #ffffff;
+}
+
+button:hover {
+    color: #fff;
+    background-color: #FD2D01;
+    cursor: pointer;
+} 
+
+.line {
+    border-bottom: 1px solid #e2dddd;
+    padding: 10px;
+}
+
+.btn-signup {
+    color: #fff;
+    background-color: #4E5166;
+    cursor: pointer;
+}
