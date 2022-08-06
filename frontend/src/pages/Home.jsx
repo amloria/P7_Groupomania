@@ -1,14 +1,14 @@
 import Banner from "../components/Banner";
-import Form from "../components/Form";
 import Footer from "../components/Footer";
+import Login from "../components/Login";
 
 function App() {
   return (
-    <div>
+    <>
       <Banner />
-      <Form />
+      <Login />
       <Footer />
-    </div>
+    </>
   )
 }
 

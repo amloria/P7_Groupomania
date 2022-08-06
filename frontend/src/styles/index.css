@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+:root {
+  --color-primary: #FD2D01;
+  --color-secondary: #FFD7D7;
+  --color-tertiary: #4E5166;
+}

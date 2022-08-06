@@ -25,16 +25,20 @@ input, button {
     font-size: 16px;
 }
 
+input:focus-visible {
+    outline: 1px auto var(--color-tertiary);
+}
+
 button {
     transition: all 200ms ease-in-out;
     font-weight: bold;
-    color: #4E5166;
+    color: var(--color-tertiary);
     background-color: #ffffff;
 }
 
 button:hover {
     color: #fff;
-    background-color: #FD2D01;
+    background-color: var(--color-primary);
     cursor: pointer;
 } 
 
@@ -45,6 +49,6 @@ button:hover {
 
 .btn-signup {
     color: #fff;
-    background-color: #4E5166;
+    background-color: var(--color-tertiary);
     cursor: pointer;
 }
