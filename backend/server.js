@@ -44,8 +44,4 @@ server.on("listening", () => {
   console.log("Listening on " + bind);
 });
 
-app.get("/", (req, res, next) => {
-  res.send("Welcome from the home page");
-});
-
 server.listen(port);

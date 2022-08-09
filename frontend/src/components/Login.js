@@ -32,7 +32,7 @@ function Login() {
           </div>
           <div className="line">Première visite sur l'app ?</div>
           <div>
-            <Link to="./signup">
+            <Link to="/signup">
               <button
                 className="btn-signup"
                 name="signup"
