@@ -1,3 +1,4 @@
+import React from "react";
 import "../styles/Footer.css";
 import logo from "../assets/logo-white.png";
 
@@ -7,11 +8,7 @@ function Footer() {
       <div>
         <div>
           <div>
-            <img
-              className="footer-logo"
-              src={logo}
-              alt="Logo de l'entreprise"
-            />
+            <img className="footer-logo" src={logo} alt="Logo Groupomania" />
           </div>
           <div>
             <p>

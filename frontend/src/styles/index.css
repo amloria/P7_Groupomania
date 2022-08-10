@@ -18,3 +18,7 @@ a {
   --color-secondary: #FFD7D7;
   --color-tertiary: #4E5166;
 }
+
+.register-img {
+  max-width: 100%;
+}

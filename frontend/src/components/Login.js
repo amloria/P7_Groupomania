@@ -1,10 +1,12 @@
 import React from "react";
 import "../styles/Form.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import { Outlet, Link } from "react-router-dom";
+
+// import Signup from "./Signup";
 
 function Login() {
   return (
-    <Router>
+    <>
       <main className="form-container">
         <form>
           <div>
@@ -19,8 +21,8 @@ function Login() {
           <div>
             <input
               type="password"
-              name="pass"
-              id="pass"
+              name="password"
+              id="password"
               placeholder="Mot de passe"
               aria-label="Mot de passe"
             ></input>
@@ -30,9 +32,9 @@ function Login() {
               S'identifier
             </button>
           </div>
-          <div className="line">Première visite sur l'app ?</div>
+          {/* <div className="line">Première visite sur l'app ?</div>
           <div>
-            <Link to="/signup">
+            <Link to="/signup" element={<Signup />}>
               <button
                 className="btn-signup"
                 name="signup"
@@ -42,10 +44,11 @@ function Login() {
                 Inscrivez-vous
               </button>
             </Link>
-          </div>
+          </div> 
+          <Outlet />*/}
         </form>
       </main>
-    </Router>
+    </>
   );
 }
 

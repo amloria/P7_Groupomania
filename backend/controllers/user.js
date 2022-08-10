@@ -22,6 +22,8 @@ exports.signup = (req, res, next) => {
     .hash(req.body.password, parseInt(BCRYPT_CYCLE)) // encrypting the password
     .then((hash) => {
       const user = new User({
+        name: req.body.name,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
       });

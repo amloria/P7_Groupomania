@@ -1,13 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "../styles/Form.css";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { Outlet, Link } from "react-router-dom";
+
+// import Login from "./Login";
 
 function Signup() {
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+    console.log(data.get("email"));
+    console.log(document.getElementById("lastName").value);
+  }
+
   return (
-    <Router>
-      <main className="form-container blur">
-        <form className="form-signup">
+    <>
+      <main className="form-container">
+        <form className="form-signup" onSubmit={onSubmit}>
           <div>
             <input
               type="text"
@@ -20,7 +29,7 @@ function Signup() {
           <div>
             <input
               type="text"
-              name="lasName"
+              name="lastName"
               id="lastName"
               placeholder="Nom de famille"
               aria-label="Nom de famille"
@@ -38,20 +47,20 @@ function Signup() {
           <div>
             <input
               type="password"
-              name="pass"
-              id="pass"
+              name="password"
+              id="password"
               placeholder="Mot de passe"
               aria-label="Mot de passe"
             ></input>
           </div>
           <div>
-            <button name="signup" type="submit" id="signup">
+            <button name="signup" type="submit" id="signup" >
               S'inscrire
             </button>
           </div>
-          <div className="line">Déjà inscrit(e) ?</div>
+          {/* <div className="line">Déjà inscrit(e) ?</div>
           <div>
-            <Link to="/login">
+            <Link to="/login" element={<Login />}>
               <button
                 className="btn-signup"
                 name="signup"
@@ -61,10 +70,11 @@ function Signup() {
                 Identifiez-vous
               </button>
             </Link>
-          </div>
+          </div> 
+          <Outlet />*/}
         </form>
       </main>
-    </Router>
+    </>
   );
 }
 
