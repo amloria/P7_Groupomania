@@ -5,10 +5,38 @@ import "../styles/Form.css";
 // import Signup from "./Signup";
 
 function Login() {
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+
+    fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.get("email"),
+        password: data.get("password"),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function(apiData) {
+        if (apiData.ok) {
+          return apiData.json();
+        }
+      })
+      .then(() => {
+        document.location.replace(`./feed`);
+      })
+      .catch(function(err) {
+        console.error(`Retour du serveur : ${err}`);
+      });
+  }
+
   return (
     <>
       <main className="form-container">
-        <form>
+        <form onSubmit={onSubmit}>
           <div>
             <input
               type="text"

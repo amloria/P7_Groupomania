@@ -8,6 +8,8 @@ import Auth from "./pages/Auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
+import Feed from "./pages/Feed";
+
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,6 +21,7 @@ root.render(
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
       </Route>
+      <Route path="feed" element={<Feed />} />
     </Routes>
   </BrowserRouter>
 );

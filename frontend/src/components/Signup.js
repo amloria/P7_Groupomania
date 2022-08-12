@@ -9,8 +9,39 @@ function Signup() {
     e.preventDefault();
 
     const data = new FormData(e.target);
-    console.log(data.get("email"));
-    console.log(document.getElementById("lastName").value);
+
+    // const userData = {
+    //   name: data.get("name"),
+    //   lastName: data.get("lastName"),
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // };
+
+    // console.log(userData);
+
+    fetch("http://localhost:3000/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        name: data.get("name"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        password: data.get("password"),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function(apiData) {
+        if (apiData.ok) {
+          return apiData.json();
+        }
+      })
+      .then(() => {
+        document.location.replace(`./feed`);
+      })
+      .catch(function(err) {
+        console.error(`Retour du serveur : ${err}`);
+      });
   }
 
   return (
@@ -54,7 +85,7 @@ function Signup() {
             ></input>
           </div>
           <div>
-            <button name="signup" type="submit" id="signup" >
+            <button name="signup" type="submit" id="signup">
               S'inscrire
             </button>
           </div>
