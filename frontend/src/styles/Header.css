@@ -16,10 +16,14 @@
 }
 
 .header-search {
-    padding: 5px;
+    padding: 5px 7px;
     font-size: 14px;
 }
 
 .header-profile {
     margin-right: 5px;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
 }
