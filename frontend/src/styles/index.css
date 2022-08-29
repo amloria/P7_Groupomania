@@ -19,6 +19,6 @@ a {
   --color-tertiary: #4E5166;
 }
 
-.register-img {
-  max-width: 100%;
+.main-container {
+  height: calc(100vh - 125px);
 }

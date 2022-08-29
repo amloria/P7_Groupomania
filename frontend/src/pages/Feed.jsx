@@ -11,7 +11,9 @@ function Feed() {
 
     return (<>
     <Header />
+
     <div className="main-feed">
+        
 
     </div>
 

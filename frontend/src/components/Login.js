@@ -1,8 +1,10 @@
 import React from "react";
 import "../styles/Form.css";
-// import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
-// import Signup from "./Signup";
+import Banner from "./Banner";
+import Signup from "./Signup";
+import Footer from "./Footer";
 
 function Login() {
   function onSubmit(e) {
@@ -35,6 +37,8 @@ function Login() {
 
   return (
     <>
+      <div className="main-container">
+      <Banner />
       <main className="form-container">
         <form onSubmit={onSubmit}>
           <div>
@@ -60,7 +64,7 @@ function Login() {
               S'identifier
             </button>
           </div>
-          {/* <div className="line">Première visite sur l'app ?</div>
+          <div className="line">Première visite sur l'app ?</div>
           <div>
             <Link to="/signup" element={<Signup />}>
               <button
@@ -73,9 +77,11 @@ function Login() {
               </button>
             </Link>
           </div> 
-          <Outlet />*/}
+          <Outlet />
         </form>
       </main>
+      </div>
+      <Footer />
     </>
   );
 }

@@ -1,12 +1,13 @@
 .header-nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin: auto;
     padding: 10px;
     background-color: #fff;
     border-bottom: #e2dddd solid 1px;
     position: fixed;
+    top: 0;
     width: 100%;
 }
 
