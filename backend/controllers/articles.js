@@ -32,8 +32,8 @@ exports.getOneArticle = (req, res, next) => {
 
 exports.getAllArticles = (req, res, next) => {
   Article.find()
-    .then((article) => {
-      res.status(200).json(article);
+    .then((articles) => {
+      res.status(200).json(articles);
     })
     .catch((error) => {
       res.status(400).json({ error });
@@ -52,17 +52,15 @@ exports.modifyArticle = (req, res, next) => {
 
   Article.findOne({ _id: req.params.id })
     .then((article) => {
-      // if (article.userId != req.auth.userId) {
+      // if (article.userId != req.auth.userId || !req.user.isAdmin) {
       //   res.status(403).json({ message: "Not authorized" });
       // } else {
-        Article.updateOne(
-          { _id: req.params.id },
-          { ...articleObject, _id: req.params.id }
-        )
-          .then(() =>
-            res.status(200).json({ message: "Updated successfully!" })
-          )
-          .catch((error) => res.status(401).json({ error }));
+      Article.updateOne(
+        { _id: req.params.id },
+        { ...articleObject, _id: req.params.id }
+      )
+        .then(() => res.status(200).json({ message: "Updated successfully!" }))
+        .catch((error) => res.status(401).json({ error }));
       // }
     })
     .catch((error) => {
@@ -73,17 +71,17 @@ exports.modifyArticle = (req, res, next) => {
 exports.deleteArticle = (req, res, next) => {
   Article.findOne({ _id: req.params.id })
     .then((article) => {
-      // if (article.userId != req.auth.userId) {
+      // if (article.userId != req.auth.userId || !req.user.isAdmin) {
       //   res.status(401).json({ message: "Not authorized" });
       // } else {
-        const filename = article.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          Article.deleteOne({ _id: req.params.id })
-            .then(() => {
-              res.status(204).json({ message: "Deleted successfully!" });
-            })
-            .catch((error) => res.status(401).json({ error }));
-        });
+      const filename = article.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        Article.deleteOne({ _id: req.params.id })
+          .then(() => {
+            res.status(204).json({ message: "Deleted successfully!" });
+          })
+          .catch((error) => res.status(401).json({ error }));
+      });
       // }
     })
     .catch((error) => {

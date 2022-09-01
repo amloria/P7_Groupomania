@@ -1,0 +1,93 @@
+.article-post {
+    border: 1px solid #e2dddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 500px;
+    background-color: #fff;
+    box-shadow: #ddd 0 3px 5px;
+}
+
+.article-post {
+    padding: 15px 0;
+    position: relative;
+}
+
+.post-options {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.article-top, .user-avatar {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    min-height: 40px;
+    min-width: 40px;
+    border: 1px solid #e2dddd;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.img-post {
+    width: calc(100% + 0.35px);
+    max-height: 500px;
+    object-fit: contain;
+
+}
+
+.post-description {
+    margin: 0;
+    padding: 10px 0;    
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.article-top, .post-description {
+    padding-left: 15px;
+    padding-right: 15px;   
+}
+
+.post-icons, .post-comment {
+    display: flex;
+    align-items: center;
+}
+
+.post-icons {
+    justify-content: space-around;
+    height: 20px;
+    margin: 5px;
+    margin-top: 10px;
+}
+
+.post-comment {
+    border: 1px solid #e2dddd;
+    border-radius: 25px;
+    padding: 5px 10px;
+    margin: 15px 5px;
+    margin-bottom: 0;
+}
+
+.create-comment {
+    border: 1px solid #fff;
+    outline: 0px !important;
+    padding: 5px;
+    width: 100%;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.face-smile, .arrow-up, .articleDate {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.articleDate {
+    font-size: 12px;
+}

@@ -8,6 +8,7 @@ import Auth from "./pages/Auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
+
 import Feed from "./pages/Feed";
 
 // import reportWebVitals from './reportWebVitals';
@@ -17,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Auth />} />
+      <Route exact path="/" element={<Auth />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="feed" element={<Feed />} />
