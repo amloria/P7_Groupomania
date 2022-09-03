@@ -5,9 +5,10 @@ const articleSchema = mongoose.Schema({
   description: { type: String, required: true },
   imageUrl: { type: String },
   likes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 },
   usersLiked: [{ type: String }],
-  usersDisliked: [{ type: String }],
+  createdAt: { type: String },
+  comments: [{ type: String }],
+  keyRef: { type: String },
 });
 
 module.exports = mongoose.model("Article", articleSchema);

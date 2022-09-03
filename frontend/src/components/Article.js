@@ -12,7 +12,7 @@ function Article(article) {
           </a>
           <div className="post-top-center">
             <span className="user-name">Nom Utilisateur</span>
-            <div className="articleDate">Il y a 5 min</div>
+            <div className="articleDate">Posté le {article.date}</div>
           </div>
           <i className="post-options fa-solid fa-ellipsis"></i>
         </div>
@@ -21,9 +21,9 @@ function Article(article) {
         <div className="post-icons">
           <i className="fa-regular fa-lg fa-thumbs-up"></i>
           <span>{article.likes}</span>
-          <i className="fa-regular fa-lg fa-thumbs-down"></i>
-          <span>{article.dislikes}</span>
           <i className="fa-regular fa-lg fa-comment"></i>
+          <span>{article.comments}</span>
+          <i className="fa-regular fa-lg fa-paper-plane"></i>
         </div>
         <div className="post-comment">
           <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>

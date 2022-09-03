@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const dotenv = require("dotenv");
+const { db } = require("../models/User");
 dotenv.config();
 const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const BCRYPT_CYCLE = process.env.BCRYPT_CYCLE;

@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import { useEffect } from "react";
 
+
 function Feed() { 
 
     const [articles, setArticles] = useState([]);
@@ -32,8 +33,6 @@ function Feed() {
             });
         }, []);
 
-    console.log(articles);
-
     return (<>
     <Header />
     <div className="main-feed">
@@ -43,6 +42,7 @@ function Feed() {
             key={article._id} 
             description={article.description}
             imageUrl={article.imageUrl}
+            date={article.createdAt}
             />
         ))}
     </div>

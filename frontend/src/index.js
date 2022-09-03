@@ -8,8 +8,8 @@ import Auth from "./pages/Auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
-
 import Feed from "./pages/Feed";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 // import reportWebVitals from './reportWebVitals';
 
@@ -21,7 +21,9 @@ root.render(
       <Route exact path="/" element={<Auth />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
-      <Route path="feed" element={<Feed />} />
+      <Route element={<PrivateRoutes />}>
+        <Route path="feed" element={<Feed />} />
+      </Route>
     </Routes>
   </BrowserRouter>
 );

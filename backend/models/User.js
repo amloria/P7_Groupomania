@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+const crypto = require("crypto");
+
+const generateId = crypto.randomBytes(16).toString("hex");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -10,6 +13,7 @@ const userSchema = mongoose.Schema({
   followers: { type: Array, default: [] },
   following: { type: Array, default: [] },
   isAdmin: { type: Boolean, default: false },
+  keyRef: { type: String, unique: true, default: { generateId } },
 });
 
 userSchema.plugin(uniqueValidator);

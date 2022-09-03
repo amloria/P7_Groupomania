@@ -1,6 +1,8 @@
 const Article = require("../models/Article");
 const fs = require("fs");
 
+const User = require("../models/User");
+
 exports.createArticle = (req, res, next) => {
   const articleObject = JSON.parse(req.body.article);
   const article = new Article({
@@ -9,6 +11,7 @@ exports.createArticle = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
+    createdAt: new Date().toLocaleString().replace(",", " à"), 
   });
   article
     .save()
@@ -31,13 +34,30 @@ exports.getOneArticle = (req, res, next) => {
 };
 
 exports.getAllArticles = (req, res, next) => {
-  Article.find()
+  Article.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "keyRef",
+        foreignField: "keyRef",
+        as: "user",
+      },
+    },
+  ])
     .then((articles) => {
       res.status(200).json(articles);
     })
     .catch((error) => {
       res.status(400).json({ error });
     });
+
+  // Article.find()
+  //   .then((articles) => {
+  //     res.status(200).json(articles);
+  //   })
+  //   .catch((error) => {
+  //     res.status(400).json({ error });
+  //   });
 };
 
 exports.modifyArticle = (req, res, next) => {
