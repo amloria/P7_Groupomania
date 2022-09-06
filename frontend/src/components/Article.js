@@ -11,7 +11,9 @@ function Article(article) {
             AV
           </a>
           <div className="post-top-center">
-            <span className="user-name">Nom Utilisateur</span>
+            <span className="user-name">
+              {article.user.name} {article.user.lastName}
+            </span>
             <div className="articleDate">Posté le {article.date}</div>
           </div>
           <i className="post-options fa-solid fa-ellipsis"></i>

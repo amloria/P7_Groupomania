@@ -23,12 +23,92 @@
     font-weight: 400;
     text-align: left;
     color: rgba(0, 0, 0, 0.6);
-    background-color: rgba(0, 0, 0, 0.02);
+    
     padding: 10px 15px;
     justify-content: space-between;
 }
 
 .create-post:hover {
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.04);
     color: rgba(0, 0, 0, 0.6);
 }
+
+/* FORM NEW POST */
+.new-post-container, .new-post-form {
+    background-color: #fff;
+    max-width: 500px;
+}
+
+.new-post-container {
+    border: 1px solid #e2dddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: auto;
+    box-shadow: #ddd 0 3px 5px;
+}
+
+.new-post-form div {
+    margin: 0;
+}
+
+.container-top, .container-user {
+    display: flex;
+    align-items: center;
+}
+
+.container-top, .container-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2dddd;
+}
+
+.container-bottom {
+    border: none;
+    padding: 30px 5px 0 5px;
+}
+
+.container-user {
+    margin: 15px 0;
+}
+
+.container-top h2 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.add-image, .cancel-post {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.cancel-post:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+.add-image:hover {
+    color: rgb(0, 98, 255);
+}
+
+.share-post {
+    width: auto;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+.new-post-form {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.new-post-description {
+    margin: 0;
+}
+
+

@@ -1,17 +1,18 @@
 const Article = require("../models/Article");
 const fs = require("fs");
 
-const User = require("../models/User");
-
 exports.createArticle = (req, res, next) => {
   const articleObject = JSON.parse(req.body.article);
+
+  console.log(req.auth);
   const article = new Article({
     ...articleObject,
-    // userId: req.auth.userId,
+    userId: req.auth.userId,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
-    createdAt: new Date().toLocaleString().replace(",", " à"), 
+    createdAt: new Date().toLocaleString().replace(",", " à"),
+    keyRef: req.auth.keyRef,
   });
   article
     .save()

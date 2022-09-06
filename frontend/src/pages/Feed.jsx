@@ -13,7 +13,6 @@ import { useEffect } from "react";
 function Feed() { 
 
     const [articles, setArticles] = useState([]);
-
     useEffect(() => {
         fetch(`http://localhost:3000/api/articles/`)
             .then(function (apiArticles) {
@@ -22,11 +21,7 @@ function Feed() {
               }
             })
             .then(function (articles) {
-            //   console.log(articles);  
               setArticles(articles);
-            //   articles.map((a) => (
-            //     <Article key={a._id} article={a} />
-            //   ));
             })
             .catch(function (err) {
               console.error(`Retour du serveur : ${err}`); // Show error if necessary
@@ -34,19 +29,20 @@ function Feed() {
         }, []);
 
     return (<>
-    <Header />
-    <div className="main-feed">
-        <CreateArticle />
-        {articles.map((article) => (
-            <Article 
-            key={article._id} 
-            description={article.description}
-            imageUrl={article.imageUrl}
-            date={article.createdAt}
-            />
-        ))}
-    </div>
-    <Footer />
+        <Header />
+        <div className="main-feed">
+            <CreateArticle />
+            {articles.map((article) => (
+                <Article 
+                key={article._id} 
+                description={article.description}
+                imageUrl={article.imageUrl}
+                date={article.createdAt}
+                user={article.user[0]}
+                />
+            ))}
+        </div>
+        <Footer />
     </>)
 
 }

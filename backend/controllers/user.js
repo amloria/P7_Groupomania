@@ -4,12 +4,17 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const dotenv = require("dotenv");
-const { db } = require("../models/User");
 dotenv.config();
 const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const BCRYPT_CYCLE = process.env.BCRYPT_CYCLE;
 
 const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+
+function generateId() {
+  return (
+    Math.random().toString(36).substring(2) + new Date().getTime().toString(36)
+  );
+}
 
 exports.signup = (req, res, next) => {
   const emailUserInput = req.body.email;
@@ -27,6 +32,7 @@ exports.signup = (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
+        keyRef: generateId(),
       });
       user
         .save()
@@ -58,9 +64,16 @@ exports.login = (req, res, next) => {
             } else {
               res.status(200).json({
                 userId: user._id,
-                token: jwt.sign({ userId: user._id }, AUTH_TOKEN, {
-                  expiresIn: "24h",
-                }),
+                token: jwt.sign(
+                  {
+                    userId: user._id,
+                    keyRef: user.keyRef,
+                  },
+                  AUTH_TOKEN,
+                  {
+                    expiresIn: "24h",
+                  }
+                ),
               });
             }
           })
