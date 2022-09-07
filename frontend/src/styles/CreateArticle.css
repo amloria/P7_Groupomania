@@ -23,9 +23,9 @@
     font-weight: 400;
     text-align: left;
     color: rgba(0, 0, 0, 0.6);
-    
     padding: 10px 15px;
     justify-content: space-between;
+    transition: none;
 }
 
 .create-post:hover {
@@ -43,7 +43,7 @@
     border: 1px solid #e2dddd;
     border-radius: 10px;
     padding: 15px;
-    margin: auto;
+    margin: 15px auto;
     box-shadow: #ddd 0 3px 5px;
 }
 
@@ -80,16 +80,42 @@
     margin: 0;
 }
 
-.add-image, .cancel-post {
+.add-content, .cancel-post {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.cancel-post {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: none;
 }
 
 .cancel-post:hover {
     color: rgba(0, 0, 0, 1);
+    background-color: #fff;
+}
+
+.add-content i {
+    padding-right: 10px;
 }
 
 .add-image:hover {
     color: rgb(0, 98, 255);
+}
+
+.input-image {
+    border: none;
+    width: auto;
+    font-size: 14px;
+    padding: 0;
+    cursor: pointer;
+    display: none;
+    text-indent: -125px;
 }
 
 .share-post {
