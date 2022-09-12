@@ -6,9 +6,9 @@ import Header from "../components/Header";
 import CreateArticle from "../components/CreateArticle"
 import Article from "../components/Article";
 import Footer from "../components/Footer";
+
 import { useState } from "react";
 import { useEffect } from "react";
-
 
 function Feed() { 
 
@@ -27,7 +27,7 @@ function Feed() {
               console.error(`Retour du serveur : ${err}`); // Show error if necessary
             });
         }, []);
-
+    
     return (<>
         <Header />
         <div className="main-feed">

@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Form.css";
-import { Outlet, Link } from "react-router-dom";
+import { useNavigate, Outlet, Link } from "react-router-dom";
 
 import Banner from "./Banner";
 import Signup from "./Signup";
 import Footer from "./Footer";
 
 function Login() {
+  let navigate = useNavigate();
+  const [userAuth, setUserAuth] = useState(false);
+  const [userKeyRef, setUserKeyRef] = useState(null);
+
+  window.localStorage.setItem("userAuth", userAuth);
+  window.localStorage.setItem("userKeyRef", userKeyRef);
+
   function onSubmit(e) {
     e.preventDefault();
 
@@ -22,15 +29,18 @@ function Login() {
         "Content-Type": "application/json",
       },
     })
-      .then(function(apiData) {
+      .then(function (apiData) {
         if (apiData.ok) {
+          setUserAuth(true);
           return apiData.json();
         }
       })
-      .then(() => {
-        document.location.replace(`./feed`);
+      .then((res) => {
+        window.localStorage.setItem("userKeyRef", res.userKeyRef);
+        setUserKeyRef(res.userKeyRef);
+        navigate("/feed", { replace: true });
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });
   }
@@ -38,48 +48,50 @@ function Login() {
   return (
     <>
       <div className="main-container">
-      <Banner />
-      <main className="form-container">
-        <form onSubmit={onSubmit}>
-          <div>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Adresse e-mail"
-              aria-label="Adresse e-mail"
-            ></input>
-          </div>
-          <div>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Mot de passe"
-              aria-label="Mot de passe"
-            ></input>
-          </div>
-          <div>
-            <button name="login" type="submit" id="login">
-              S'identifier
-            </button>
-          </div>
-          <div className="line">Première visite sur l'app ?</div>
-          <div>
-            <Link to="/signup" element={<Signup />}>
-              <button
-                className="btn-signup"
-                name="signup"
-                type="button"
-                id="buttonSignup"
-              >
-                Inscrivez-vous
+        <Banner />
+        <main className="form-container">
+          <form onSubmit={onSubmit}>
+            <div>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Adresse e-mail"
+                aria-label="Adresse e-mail"
+                required
+              ></input>
+            </div>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Mot de passe"
+                aria-label="Mot de passe"
+                required
+              ></input>
+            </div>
+            <div>
+              <button name="login" type="submit" id="login">
+                S'identifier
               </button>
-            </Link>
-          </div> 
-          <Outlet />
-        </form>
-      </main>
+            </div>
+            <div className="line">Première visite sur l'app ?</div>
+            <div>
+              <Link to="/signup" element={<Signup />}>
+                <button
+                  className="btn-signup"
+                  name="signup"
+                  type="button"
+                  id="buttonSignup"
+                >
+                  Inscrivez-vous
+                </button>
+              </Link>
+            </div>
+            <Outlet />
+          </form>
+        </main>
       </div>
       <Footer />
     </>

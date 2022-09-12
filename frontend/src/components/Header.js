@@ -24,9 +24,10 @@ function Header() {
           </div>
           <div className="header-logout">
             <Link to="/">
-              {/* <i className="fa-solid fa-lg fa-power-off"></i> */}
-              {/* <i className="fa-regular fa-lg fa-circle-user"></i> */}
-              <i className="fa-solid fa-lg fa-arrow-right-from-bracket" title="Se déconnecter"></i>
+              <i
+                className="fa-solid fa-lg fa-arrow-right-from-bracket"
+                title="Se déconnecter"
+              ></i>
             </Link>
           </div>
         </nav>

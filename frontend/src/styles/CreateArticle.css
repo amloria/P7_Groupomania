@@ -84,6 +84,11 @@
     color: rgba(0, 0, 0, 0.6);
 }
 
+.add-content {
+    align-items: center;
+    display: flex;
+}
+
 .cancel-post {
     width: 20px;
     height: 20px;
@@ -118,6 +123,14 @@
     text-indent: -125px;
 }
 
+.file-name {
+    font-size: 11px;
+    max-height: 29px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
 .share-post {
     width: auto;
     padding: 5px 10px;
@@ -135,6 +148,10 @@
 
 .new-post-description {
     margin: 0;
+}
+
+.new-post-description input {
+    margin-bottom: 44px;
 }
 
 

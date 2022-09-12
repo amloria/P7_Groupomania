@@ -6,7 +6,11 @@ const userSchema = mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  profilePicture: { type: String, default: "" },
+  profilePicture: {
+    type: String,
+    default:
+      "http://localhost:4200/static/media/teamwork-groupomania.c048ccbb5ca33a41e4bb.webp",
+  },
   followers: { type: Array, default: [] },
   following: { type: Array, default: [] },
   isAdmin: { type: Boolean, default: false },

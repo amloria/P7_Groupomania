@@ -7,9 +7,11 @@ function Article(article) {
     <>
       <article className="article-post">
         <div className="article-top">
-          <a href="#" className="user-avatar">
-            AV
-          </a>
+          <img
+            src={article.user.profilePicture}
+            className="user-avatar"
+            alt=""
+          />
           <div className="post-top-center">
             <span className="user-name">
               {article.user.name} {article.user.lastName}

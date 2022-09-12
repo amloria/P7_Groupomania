@@ -1,11 +1,10 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 function PrivateRoutes() {
-  let auth = { token: true };
+  const userKeyRef = window.localStorage.getItem("userKeyRef");
+//   console.log(userKeyRef);
 
-
-
-  return auth.token ? <Outlet /> : <Navigate to="login" />;
+  return userKeyRef !== null ? <Outlet /> : <Navigate to="/login" replace />;
 }
 
 export default PrivateRoutes;

@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/Form.css";
-import { Outlet, Link } from "react-router-dom";
+import { useNavigate, Outlet, Link } from "react-router-dom";
 
 import Banner from "./Banner";
 import Login from "./Login";
 import Footer from "./Footer";
 
 function Signup() {
+  let navigate = useNavigate();
+
   function onSubmit(e) {
     e.preventDefault();
 
@@ -24,15 +26,15 @@ function Signup() {
         "Content-Type": "application/json",
       },
     })
-      .then(function(apiData) {
+      .then(function (apiData) {
         if (apiData.ok) {
           return apiData.json();
         }
       })
       .then(() => {
-        document.location.replace(`./feed`);
+        navigate("/login", { replace: true });
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });
   }
@@ -50,6 +52,7 @@ function Signup() {
                 id="name"
                 placeholder="Prénom"
                 aria-label="Prénom"
+                required
               ></input>
             </div>
             <div>
@@ -59,6 +62,7 @@ function Signup() {
                 id="lastName"
                 placeholder="Nom de famille"
                 aria-label="Nom de famille"
+                required
               ></input>
             </div>
             <div>
@@ -68,6 +72,7 @@ function Signup() {
                 id="email"
                 placeholder="Adresse e-mail"
                 aria-label="Adresse e-mail"
+                required
               ></input>
             </div>
             <div>
@@ -77,6 +82,7 @@ function Signup() {
                 id="password"
                 placeholder="Mot de passe"
                 aria-label="Mot de passe"
+                required
               ></input>
             </div>
             <div>

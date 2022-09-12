@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-
 import Feed from "./pages/Feed";
 import PrivateRoutes from "./components/PrivateRoutes";
 
