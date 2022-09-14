@@ -8,7 +8,6 @@ exports.createArticle = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
-    createdAt: new Date().toLocaleString().replace(",", " à"),
     keyRef: req.auth.keyRef,
   });
   article

@@ -99,3 +99,23 @@
 .articleDate {
     font-size: 12px;
 }
+
+.edit-delete button {
+    padding: 3px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    width: auto;
+}
+
+.edit-delete {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+
+.edit-delete button:hover {
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.6);
+}

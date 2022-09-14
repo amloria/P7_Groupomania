@@ -24,7 +24,10 @@ function Feed() {
               }
             })
             .then(function (articles) {
-              setArticles(articles);
+              setArticles(
+                articles.sort((a, b) => {
+                  return new Date(b.createdAt) - new Date(a.createdAt)
+                }));
             })
             .catch(function (err) {
               console.error(`Retour du serveur : ${err}`); // Show error if necessary

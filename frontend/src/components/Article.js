@@ -4,6 +4,7 @@ import "../styles/Article.css";
 
 function Article(article) {
   const [comment, setComment] = useState(false);
+  const [options, setOptions] = useState(false);
 
   return (
     <>
@@ -18,9 +19,31 @@ function Article(article) {
             <span className="user-name">
               {article.user.name} {article.user.lastName}
             </span>
-            <div className="articleDate">Posté le {article.date}</div>
+            <div className="articleDate">
+              Posté le {article.date.split("T").join(" à ").substring(0, 18)} hs
+            </div>
           </div>
-          <i className="post-options fa-solid fa-ellipsis"></i>
+          {options !== false ? (
+            <>
+              <i
+                className="post-options fa-solid fa-ellipsis"
+                onClick={() => {
+                  setOptions(false);
+                }}
+              ></i>
+              <div className="edit-delete">
+                <button>Modifier</button>
+                <button>Supprimer</button>
+              </div>
+            </>
+          ) : (
+            <i
+              className="post-options fa-solid fa-ellipsis"
+              onClick={() => {
+                setOptions(true);
+              }}
+            ></i>
+          )}
         </div>
         <h3 className="post-description">{article.description}</h3>
         <img src={article.imageUrl} className="img-post" alt="" />
