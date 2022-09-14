@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../styles/Article.css";
 
 function Article(article) {
+  const [comment, setComment] = useState(false);
+
   return (
     <>
       <article className="article-post">
@@ -25,20 +27,27 @@ function Article(article) {
         <div className="post-icons">
           <i className="fa-regular fa-lg fa-thumbs-up"></i>
           <span>{article.likes}</span>
-          <i className="fa-regular fa-lg fa-comment"></i>
+          <i
+            className="fa-regular fa-lg fa-comment"
+            onClick={() => {
+              setComment(true);
+            }}
+          ></i>
           <span>{article.comments}</span>
           <i className="fa-regular fa-lg fa-paper-plane"></i>
         </div>
-        <div className="post-comment">
-          <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
-          <input
-            className="create-comment"
-            placeholder="Ajouter un commentaire..."
-            aria-label="Ajouter un commentaire"
-            type="text"
-          ></input>
-          <i className="arrow-up fa-solid fa-lg fa-circle-arrow-up"></i>
-        </div>
+        {comment !== false ? (
+          <div className="post-comment">
+            <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
+            <input
+              className="create-comment"
+              placeholder="Ajouter un commentaire..."
+              aria-label="Ajouter un commentaire"
+              type="text"
+            ></input>
+            <i className="arrow-up fa-solid fa-lg fa-circle-arrow-up"></i>
+          </div>
+        ) : null}
       </article>
     </>
   );

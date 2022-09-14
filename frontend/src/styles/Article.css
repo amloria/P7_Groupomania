@@ -47,9 +47,9 @@
 
 .post-description {
     margin: 0;
-    padding: 10px 0;    
+    padding: 15px 0;    
     font-weight: 400;
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 
 .article-top, .post-description {
@@ -81,6 +81,7 @@
     border: 1px solid #fff;
     outline: 0px !important;
     padding: 5px;
+    margin-left: 3px;
     width: 100%;
     font-size: 14px;
     overflow: hidden;

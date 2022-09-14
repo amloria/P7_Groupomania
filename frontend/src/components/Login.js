@@ -36,8 +36,9 @@ function Login() {
         }
       })
       .then((res) => {
-        window.localStorage.setItem("userKeyRef", res.userKeyRef);
-        setUserKeyRef(res.userKeyRef);
+        window.localStorage.setItem("userKeyRef", res.keyRef);
+        window.localStorage.setItem("token", res.token);
+        setUserKeyRef(res.keyRef);
         navigate("/feed", { replace: true });
       })
       .catch(function (err) {

@@ -1,10 +1,17 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { useNavigate, Outlet, Link } from "react-router-dom";
 
 import "../styles/Header.css";
 import logo from "../assets/icon-left-font.png";
 
 function Header() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/", { replace: true });
+  };
+
   return (
     <>
       <header>
@@ -23,12 +30,12 @@ function Header() {
             ></input>
           </div>
           <div className="header-logout">
-            <Link to="/">
+            <button className="logout" onClick={logout}>
               <i
                 className="fa-solid fa-lg fa-arrow-right-from-bracket"
                 title="Se déconnecter"
               ></i>
-            </Link>
+            </button>
           </div>
         </nav>
       </header>

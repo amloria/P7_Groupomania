@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const articleSchema = mongoose.Schema({
-  userId: { type: String, required: true },
-  description: { type: String, required: true },
+  userId: { type: String, default: "" },
+  description: { type: String, required: true, default: "" },
   imageUrl: { type: String, default: "" },
   likes: { type: Number, default: 0 },
   usersLiked: [{ type: String }],

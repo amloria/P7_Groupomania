@@ -1,44 +1,33 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/CreateArticle.css";
 
 function CreateArticle() {
+  const navigate = useNavigate();
+  const refreshPage = () => {
+    navigate(0);
+  };
   const [newArticle, setNewArticle] = useState(true);
-
-  // const dataUser = user.user[0];
 
   const [file, setFile] = useState(null);
 
   const createNewArticle = (e) => {
     e.preventDefault();
 
-    const dataArticle = new FormData(e.target);
+    let dataArticle = new FormData(e.target);
 
-    fetch("http://localhost:3000/api/articles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: JSON.stringify({
-        article: {
-          userId: "",
-          description: dataArticle.get("description"),
-          imageUrl: dataArticle.get("file").name,
-          likes: " ",
-          usersLiked: "[]",
-          createdAt: "",
-          comments: "[]",
-          keyRef: "",
+    axios
+      .post(`http://localhost:3000/api/articles`, dataArticle, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: "Bearer " + localStorage.getItem("token"),
         },
-        image: { file },
-      }),
-    })
-      .then(function (apiData) {
-        if (apiData.ok) {
-          return apiData.json();
-        }
       })
-      .then(() => {})
+      .then(() => {
+        refreshPage();
+      })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });
@@ -109,7 +98,7 @@ function CreateArticle() {
             </label>
             <input
               id="file"
-              name="file"
+              name="image"
               className="input-image"
               type="file"
               accept="image/jpeg, image/jpg, image/png"

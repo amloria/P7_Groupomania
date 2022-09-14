@@ -14,7 +14,10 @@ function Feed() {
 
     const [articles, setArticles] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:3000/api/articles/`)
+        fetch(`http://localhost:3000/api/articles/`, {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+        }})
             .then(function (apiArticles) {
               if (apiArticles.ok) {
                 return apiArticles.json();
