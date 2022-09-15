@@ -10,9 +10,11 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, `${AUTH_TOKEN}`);
     const userId = decodedToken.userId;
     const keyRef = decodedToken.keyRef;
+    const isAdmin = decodedToken.isAdmin;
     req.auth = {
       userId: userId,
       keyRef: keyRef,
+      isAdmin: isAdmin,
     };
     next();
   } catch (error) {

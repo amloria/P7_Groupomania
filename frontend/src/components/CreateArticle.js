@@ -70,18 +70,24 @@ function CreateArticle() {
         onSubmit={createNewArticle}
         encType="multipart/form-data"
       >
-        <div>
-          <div className="new-post-description">
-            <input
-              className="create-comment"
-              name="description"
-              id="post-description"
-              placeholder="Ajouter une description..."
-              aria-label="Ajouter une description"
-              type="text"
-            ></input>
-          </div>
+        <div className="new-post-description">
+          <input
+            className="create-comment"
+            name="description"
+            id="post-description"
+            placeholder="Ajouter une description..."
+            aria-label="Ajouter une description"
+            type="text"
+          ></input>
         </div>
+        {file && (
+          <div className="new-img-preview">
+            <img src={URL.createObjectURL(file)} className="new-image" alt="" />
+            <button className="cancel-img" onClick={() => setFile(null)}>
+              <i className="fa-solid fa-lg fa-xmark"></i>
+            </button>
+          </div>
+        )}
         <div className="container-bottom">
           <div className="add-content">
             <div>

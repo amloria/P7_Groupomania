@@ -1,17 +1,56 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/Article.css";
 
 function Article(article) {
+  const navigate = useNavigate();
+  const refreshPage = () => {
+    navigate(0);
+  };
+
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
+
+  const onEdit = () => {
+    axios
+      .put(`http://localhost:3000/api/articles/${article.postRef}`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        refreshPage();
+      })
+      .catch(function (err) {
+        console.error(`Retour du serveur : ${err}`);
+      });
+  };
+
+  const onDelete = () => {
+    axios
+      .delete(`http://localhost:3000/api/articles/${article.postRef}`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        refreshPage();
+      })
+      .catch(function (err) {
+        console.error(`Retour du serveur : ${err}`);
+      });
+  };
 
   return (
     <>
       <article className="article-post">
         <div className="article-top">
           <img
-            src={article.user.profilePicture}
+            src="{article.user.profilePicture}"
             className="user-avatar"
             alt=""
           />
@@ -24,7 +63,7 @@ function Article(article) {
             </div>
           </div>
           {options !== false ? (
-            <>
+            <div>
               <i
                 className="post-options fa-solid fa-ellipsis"
                 onClick={() => {
@@ -32,10 +71,23 @@ function Article(article) {
                 }}
               ></i>
               <div className="edit-delete">
-                <button>Modifier</button>
-                <button>Supprimer</button>
+                <button
+                  onClick={() => {
+                    onEdit();
+                  }}
+                >
+                  Modifier
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDelete();
+                  }}
+                >
+                  Supprimer
+                </button>
               </div>
-            </>
+            </div>
           ) : (
             <i
               className="post-options fa-solid fa-ellipsis"

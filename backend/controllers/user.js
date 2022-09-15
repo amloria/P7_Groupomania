@@ -68,6 +68,7 @@ exports.login = (req, res, next) => {
                   {
                     userId: user._id,
                     keyRef: user.keyRef,
+                    isAdmin: user.isAdmin,
                   },
                   AUTH_TOKEN,
                   {
