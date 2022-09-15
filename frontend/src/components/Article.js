@@ -13,14 +13,27 @@ function Article(article) {
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
 
-  const onEdit = () => {
+  const [newFile, setNewFile] = useState(null);
+
+  const [modify, setModify] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const onModify = (e) => {
+    e.preventDefault();
+
+    let dataArticle = new FormData(e.target);
+
     axios
-      .put(`http://localhost:3000/api/articles/${article.postRef}`, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
+      .put(
+        `http://localhost:3000/api/articles/${article.postRef}`,
+        dataArticle,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then(() => {
         refreshPage();
       })
@@ -70,23 +83,37 @@ function Article(article) {
                   setOptions(false);
                 }}
               ></i>
-              <div className="edit-delete">
-                <button
-                  onClick={() => {
-                    onEdit();
-                  }}
-                >
-                  Modifier
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDelete();
-                  }}
-                >
-                  Supprimer
-                </button>
-              </div>
+              {modify !== false ? (
+                <div className="cancel-edit edit-delete">
+                  <button
+                    onClick={() => {
+                      setOptions(false);
+                      setModify(false);
+                    }}
+                  >
+                    Annuler
+                  </button>
+                </div>
+              ) : (
+                <div className="edit-delete">
+                  <button
+                    onClick={() => {
+                      setModify(true);
+                    }}
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOptions(false);
+                      setConfirmDelete(true);
+                    }}
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <i
@@ -96,33 +123,130 @@ function Article(article) {
               }}
             ></i>
           )}
+
+          {confirmDelete !== false ? (
+            <div className="edit-delete">
+              <button
+                onClick={() => {
+                  setConfirmDelete(false);
+                }}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onDelete();
+                }}
+              >
+                Confirmer
+              </button>
+            </div>
+          ) : null}
         </div>
-        <h3 className="post-description">{article.description}</h3>
-        <img src={article.imageUrl} className="img-post" alt="" />
-        <div className="post-icons">
-          <i className="fa-regular fa-lg fa-thumbs-up"></i>
-          <span>{article.likes}</span>
-          <i
-            className="fa-regular fa-lg fa-comment"
-            onClick={() => {
-              setComment(true);
-            }}
-          ></i>
-          <span>{article.comments}</span>
-          <i className="fa-regular fa-lg fa-paper-plane"></i>
-        </div>
-        {comment !== false ? (
-          <div className="post-comment">
-            <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
-            <input
-              className="create-comment"
-              placeholder="Ajouter un commentaire..."
-              aria-label="Ajouter un commentaire"
-              type="text"
-            ></input>
-            <i className="arrow-up fa-solid fa-lg fa-circle-arrow-up"></i>
+        {modify ? (
+          <div className="modify-post-container">
+            <form
+              className="new-post-form"
+              onSubmit={onModify}
+              encType="multipart/form-data"
+            >
+              <div className="modify-post-description">
+                <input
+                  className="modify-comment"
+                  name="description"
+                  id="post-description"
+                  defaultValue={article.description}
+                  aria-label="Ajouter une description"
+                  type="text"
+                ></input>
+              </div>
+              {newFile ? (
+                <div className="new-img-preview">
+                  <img
+                    src={URL.createObjectURL(newFile)}
+                    className="new-image"
+                    alt=""
+                  />
+                  <button
+                    className="cancel-img"
+                    onClick={() => setNewFile(null)}
+                  >
+                    <i className="fa-solid fa-lg fa-xmark"></i>
+                  </button>
+                </div>
+              ) : (
+                <div className="new-img-preview">
+                  <img src={article.imageUrl} className="new-image" alt="" />
+                </div>
+              )}
+              <div className="container-bottom modify-post-bottom">
+                <div className="add-content">
+                  <div>
+                    <i
+                      className="face-smile fa-regular fa-lg fa-face-smile-beam"
+                      title="Ajouter des emojis"
+                    ></i>
+                  </div>
+                  <label htmlFor="file">
+                    <i
+                      className="add-image fa-regular fa-lg fa-image"
+                      title="Modifier l'image"
+                    ></i>
+                  </label>
+                  <input
+                    id="file"
+                    name="image"
+                    className="input-image"
+                    type="file"
+                    accept="image/jpeg, image/jpg, image/png"
+                    onChange={(e) => {
+                      setNewFile(e.target.files[0]);
+                    }}
+                  ></input>
+                  {newFile ? <p className="file-name">{newFile.name}</p> : null}
+                </div>
+                <button
+                  name="post"
+                  type="submit"
+                  id="post"
+                  className="share-post"
+                >
+                  Sauvegarder
+                </button>
+              </div>
+            </form>
           </div>
-        ) : null}
+        ) : (
+          <>
+            <h3 className="post-description">{article.description}</h3>
+            <img src={article.imageUrl} className="img-post" alt="" />
+            <div className="post-icons">
+              <i className="fa-regular fa-lg fa-thumbs-up"></i>
+              <span>{article.likes}</span>
+              <i
+                className="fa-regular fa-lg fa-comment"
+                onClick={() => {
+                  setComment(true);
+                }}
+              ></i>
+              <span>{article.comments}</span>
+              <i className="fa-regular fa-lg fa-paper-plane"></i>
+            </div>
+            {comment !== false ? (
+              <div className="post-comment">
+                <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
+                <input
+                  className="create-comment"
+                  placeholder="Ajouter un commentaire..."
+                  aria-label="Ajouter un commentaire"
+                  type="text"
+                ></input>
+                <i className="arrow-up fa-solid fa-lg fa-circle-arrow-up"></i>
+              </div>
+            ) : null}
+          </>
+        )}
       </article>
     </>
   );

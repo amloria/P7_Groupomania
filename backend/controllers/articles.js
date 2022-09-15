@@ -61,7 +61,7 @@ exports.getAllArticles = (req, res, next) => {
 exports.modifyArticle = (req, res, next) => {
   const articleObject = req.file
     ? {
-        ...JSON.parse(req.body.article),
+        ...req.body,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
@@ -70,16 +70,18 @@ exports.modifyArticle = (req, res, next) => {
 
   Article.findOne({ _id: req.params.id })
     .then((article) => {
-      // if (article.userId != req.auth.userId || !req.user.isAdmin) {
-      //   res.status(403).json({ message: "Not authorized" });
-      // } else {
-      Article.updateOne(
-        { _id: req.params.id },
-        { ...articleObject, _id: req.params.id }
-      )
-        .then(() => res.status(200).json({ message: "Updated successfully!" }))
-        .catch((error) => res.status(401).json({ error }));
-      // }
+      if (article.userId != req.auth.userId && !req.auth.isAdmin) {
+        res.status(403).json({ message: "Not authorized" });
+      } else {
+        Article.updateOne(
+          { _id: req.params.id },
+          { ...articleObject, _id: req.params.id }
+        )
+          .then(() =>
+            res.status(200).json({ message: "Updated successfully!" })
+          )
+          .catch((error) => res.status(401).json({ error }));
+      }
     })
     .catch((error) => {
       res.status(400).json({ error });

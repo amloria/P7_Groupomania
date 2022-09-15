@@ -119,3 +119,19 @@
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.cancel-edit {
+    top: 15px;
+}
+
+.modify-post-description input {
+    border: none;
+}
+
+.modify-post-description input:focus {
+    outline: none;
+}
+
+.modify-post-bottom {
+    padding: 15px 15px 5px 15px;
+}
