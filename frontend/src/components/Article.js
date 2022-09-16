@@ -1,14 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import "../styles/Article.css";
 
 function Article(article) {
-  const navigate = useNavigate();
-  const refreshPage = () => {
-    navigate(0);
-  };
+  // const navigate = useNavigate();
+  // const refreshPage = () => {
+  //   navigate(0);
+  // };
+
+  // console.log(article.postRef);
 
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
@@ -17,6 +19,36 @@ function Article(article) {
 
   const [modify, setModify] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const [like, setLike] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const onLike = () => {
+    setLike(isLiked ? like - 1 : like + 1);
+    setIsLiked(!isLiked);
+
+    try {
+      axios
+        .post(
+          `http://localhost:3000/api/articles/${article.postRef}/like`,
+          { like },
+          {
+            headers: {
+              // "Content-Type": "application/json",
+              authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          console.log("coucou");
+        })
+        .catch(function (err) {
+          console.error(`Retour du serveur : ${err}`);
+        });
+    } catch (err) {
+      console.error(`Retour du serveur : ${err}`);
+    }
+  };
 
   const onModify = (e) => {
     e.preventDefault();
@@ -35,7 +67,8 @@ function Article(article) {
         }
       )
       .then(() => {
-        refreshPage();
+        setModify(false);
+        setOptions(false);
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
@@ -49,9 +82,6 @@ function Article(article) {
           "Content-Type": "multipart/form-data",
           authorization: "Bearer " + localStorage.getItem("token"),
         },
-      })
-      .then(() => {
-        refreshPage();
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
@@ -222,16 +252,38 @@ function Article(article) {
             <h3 className="post-description">{article.description}</h3>
             <img src={article.imageUrl} className="img-post" alt="" />
             <div className="post-icons">
-              <i className="fa-regular fa-lg fa-thumbs-up"></i>
-              <span>{article.likes}</span>
-              <i
-                className="fa-regular fa-lg fa-comment"
-                onClick={() => {
-                  setComment(true);
-                }}
-              ></i>
-              <span>{article.comments}</span>
-              <i className="fa-regular fa-lg fa-paper-plane"></i>
+              <div>
+                {isLiked ? (
+                  <i
+                    className="post-liked fa-regular fa-lg fa-thumbs-up"
+                    onClick={() => {
+                      onLike();
+                    }}
+                  ></i>
+                ) : (
+                  <i
+                    className="icon fa-regular fa-lg fa-thumbs-up"
+                    onClick={() => {
+                      onLike();
+                    }}
+                  ></i>
+                )}
+                <span className="likes-comments-qty">
+                  {article.likes} J'aime
+                </span>
+              </div>
+              <div>
+                <i
+                  className="icon fa-regular fa-lg fa-comment"
+                  onClick={() => {
+                    setComment(true);
+                  }}
+                ></i>
+                <span className="likes-comments-qty">
+                  {article.comments} Commentaires
+                </span>
+              </div>
+              {/* <i className="fa-regular fa-lg fa-paper-plane"></i> */}
             </div>
             {comment !== false ? (
               <div className="post-comment">

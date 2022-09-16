@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import "../styles/CreateArticle.css";
 
 function CreateArticle() {
-  const navigate = useNavigate();
-  const refreshPage = () => {
-    navigate(0);
-  };
+  // const navigate = useNavigate();
+  // const refreshPage = () => {
+  //   navigate(0);
+  // };
   const [newArticle, setNewArticle] = useState(true);
 
   const [file, setFile] = useState(null);
@@ -25,9 +25,9 @@ function CreateArticle() {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then(() => {
-        refreshPage();
-      })
+      // .then(() => {
+      //   refreshPage();
+      // })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });

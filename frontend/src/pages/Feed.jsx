@@ -32,7 +32,7 @@ function Feed() {
           .catch(function (err) {
             console.error(`Retour du serveur : ${err}`); // Show error if necessary
           });
-      }, []);
+      }, [articles]);
     
     return (<>
         <Header />
@@ -47,6 +47,8 @@ function Feed() {
                 imageUrl={article.imageUrl}
                 date={article.createdAt}
                 user={article.user[0]}
+                likes={article.likes}
+                comments={article.comments}
                 />
             ))}
         </div>
