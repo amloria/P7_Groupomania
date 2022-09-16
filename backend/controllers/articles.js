@@ -61,7 +61,7 @@ exports.getAllArticles = (req, res, next) => {
 exports.modifyArticle = (req, res, next) => {
   const articleObject = req.file
     ? {
-        ...req.body,
+        ...req.body.article,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
