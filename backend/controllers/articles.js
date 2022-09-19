@@ -1,5 +1,4 @@
 const Article = require("../models/Article");
-const User = require("../models/User");
 const fs = require("fs");
 
 exports.createArticle = (req, res, next) => {
@@ -48,14 +47,6 @@ exports.getAllArticles = (req, res, next) => {
     .catch((error) => {
       res.status(400).json({ error });
     });
-
-  // Article.find()
-  //   .then((articles) => {
-  //     res.status(200).json(articles);
-  //   })
-  //   .catch((error) => {
-  //     res.status(400).json({ error });
-  //   });
 };
 
 exports.modifyArticle = (req, res, next) => {

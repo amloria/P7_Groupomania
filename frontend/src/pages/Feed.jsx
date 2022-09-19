@@ -3,6 +3,7 @@ import React from "react";
 import "../styles/Feed.css";
 
 import Header from "../components/Header";
+import Profile from "../components/Profile";
 import CreateArticle from "../components/CreateArticle"
 import Article from "../components/Article";
 import Footer from "../components/Footer";
@@ -37,19 +38,20 @@ function Feed() {
     return (<>
         <Header />
         <div className="main-feed">
-            <CreateArticle />
-            {articles.map((article) => (
-                <Article 
-                key={article._id} 
-                postRef={article._id}
-                description={article.description}
-                imageUrl={article.imageUrl}
-                date={article.createdAt}
-                user={article.user[0]}
-                likes={article.likes}
-                comments={article.comments}
-                />
-            ))}
+          <Profile />
+          <CreateArticle />
+          {articles.map((article) => (
+              <Article 
+              key={article._id} 
+              postRef={article._id}
+              description={article.description}
+              imageUrl={article.imageUrl}
+              date={article.createdAt}
+              user={article.user[0]}
+              likes={article.likes}
+              comments={article.comments}
+              />
+          ))}
         </div>
         <Footer />
     </>)

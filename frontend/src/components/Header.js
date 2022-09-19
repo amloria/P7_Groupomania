@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Outlet, Link } from "react-router-dom";
 
 import "../styles/Header.css";
@@ -11,6 +11,12 @@ function Header() {
     localStorage.clear();
     navigate("/", { replace: true });
   };
+
+  const monCompte = () => {
+    navigate("/profile", { replace: true });
+  };
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   return (
     <>
@@ -29,13 +35,44 @@ function Header() {
               type="text"
             ></input>
           </div>
-          <div className="header-logout">
-            <button className="logout" onClick={logout}>
-              <i
-                className="fa-solid fa-lg fa-arrow-right-from-bracket"
-                title="Se déconnecter"
-              ></i>
-            </button>
+          <div className="header-menu">
+            {menuIsOpen !== false ? (
+              <>
+                <button
+                  className="header-menu-option"
+                  onClick={monCompte}
+                  title="Mon compte"
+                >
+                  <i class="fa-solid fa-lg fa-user"></i>
+                </button>
+                <button
+                  className="header-menu-option"
+                  onClick={logout}
+                  title="Se déconnecter"
+                >
+                  <i class="fa-solid fa-lg fa-arrow-right-from-bracket"></i>
+                </button>
+                <button
+                  className="header-nav-bar"
+                  title="Retour"
+                  onClick={() => {
+                    setMenuIsOpen(false);
+                  }}
+                >
+                  <i className="fa-solid fa-lg fa-bars"></i>
+                </button>
+              </>
+            ) : (
+              <button
+                className="header-nav-bar"
+                title="Menu"
+                onClick={() => {
+                  setMenuIsOpen(true);
+                }}
+              >
+                <i className="fa-solid fa-lg fa-bars"></i>
+              </button>
+            )}
           </div>
         </nav>
       </header>

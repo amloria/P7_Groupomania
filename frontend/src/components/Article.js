@@ -228,9 +228,11 @@ function Article(article) {
                   </button>
                 </div>
               ) : (
-                <div className="new-img-preview">
-                  <img src={article.imageUrl} className="new-image" alt="" />
-                </div>
+                <>
+                  <div className="new-img-preview">
+                    <img src={article.imageUrl} className="new-image" alt="" />
+                  </div>
+                </>
               )}
               <div className="container-bottom modify-post-bottom">
                 <div className="add-content">
