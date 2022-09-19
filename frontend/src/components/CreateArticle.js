@@ -25,9 +25,9 @@ function CreateArticle() {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      // .then(() => {
-      //   refreshPage();
-      // })
+      .then(() => {
+        setNewArticle(true);
+      })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });

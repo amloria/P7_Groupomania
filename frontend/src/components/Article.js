@@ -10,8 +10,6 @@ function Article(article) {
   //   navigate(0);
   // };
 
-  // console.log(article.postRef);
-
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
 
@@ -20,18 +18,17 @@ function Article(article) {
   const [modify, setModify] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState(article.likes);
   const [isLiked, setIsLiked] = useState(false);
 
   const onLike = () => {
     setLike(isLiked ? like - 1 : like + 1);
-    setIsLiked(!isLiked);
 
     try {
       axios
         .post(
           `http://localhost:3000/api/articles/${article.postRef}/like`,
-          { like },
+          { isLiked },
           {
             headers: {
               // "Content-Type": "application/json",
@@ -39,15 +36,14 @@ function Article(article) {
             },
           }
         )
-        .then((res) => {
-          console.log("coucou");
-        })
         .catch(function (err) {
           console.error(`Retour du serveur : ${err}`);
         });
     } catch (err) {
       console.error(`Retour du serveur : ${err}`);
     }
+
+    setIsLiked(!isLiked);
   };
 
   const onModify = (e) => {
@@ -268,9 +264,7 @@ function Article(article) {
                     }}
                   ></i>
                 )}
-                <span className="likes-comments-qty">
-                  {article.likes} J'aime
-                </span>
+                <span className="likes-comments-qty">{like} J'aime</span>
               </div>
               <div>
                 <i

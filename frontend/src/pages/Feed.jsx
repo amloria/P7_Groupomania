@@ -41,7 +41,6 @@ function Feed() {
             {articles.map((article) => (
                 <Article 
                 key={article._id} 
-                // article={article}
                 postRef={article._id}
                 description={article.description}
                 imageUrl={article.imageUrl}

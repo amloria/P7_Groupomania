@@ -112,46 +112,35 @@ exports.deleteArticle = (req, res, next) => {
 exports.likeArticle = (req, res, next) => {
   Article.findOne({ _id: req.params.id })
     .then((article) => {
-      const likeStatus = req.body.like;
-      switch (likeStatus) {
-        case 1:
-          if (!article.usersLiked.includes(req.auth.userId)) {
-            // updating DB
-            Article.updateOne(
-              { _id: req.params.id },
-              {
-                $inc: { likes: 1 },
-                $push: { usersLiked: req.auth.userId },
-              }
-            )
-              .then(() => {
-                res.status(201).json({ message: "Like +1 !" });
-              })
-              .catch((error) => {
-                res.status(400).json({ error });
-              });
+      if (!article.usersLiked.includes(req.auth.userId)) {
+        Article.updateOne(
+          { _id: req.params.id },
+          {
+            $inc: { likes: 1 },
+            $push: { usersLiked: req.auth.userId },
           }
-          break;
-        case 0:
-          if (article.usersLiked.includes(req.auth.userId)) {
-            // updating DB
-            Article.updateOne(
-              { _id: req.params.id },
-              {
-                $inc: { likes: -1 },
-                $pull: { usersLiked: req.auth.userId },
-              }
-            )
-              .then(() => {
-                res.status(200).json({ message: "Like 0 !" });
-              })
-              .catch((error) => {
-                res.status(400).json({ error });
-              });
+        )
+          .then(() => {
+            res.status(201).json({ message: "Like +1 !" });
+          })
+          .catch((error) => {
+            res.status(400).json({ error });
+          });
+      }
+      if (article.usersLiked.includes(req.auth.userId)) {
+        Article.updateOne(
+          { _id: req.params.id },
+          {
+            $inc: { likes: -1 },
+            $pull: { usersLiked: req.auth.userId },
           }
-          break;
-        default:
-          console.log("Default Answer !");
+        )
+          .then(() => {
+            res.status(200).json({ message: "Like 0 !" });
+          })
+          .catch((error) => {
+            res.status(400).json({ error });
+          });
       }
     })
     .catch((error) => {
