@@ -22,6 +22,9 @@ function Article(article) {
   const [isLiked, setIsLiked] = useState(false);
 
   const [newComment, setNewComment] = useState(false);
+  // const [commentOptions, setCommentOptions] = useState(false);
+  // const [modifyComment, setModifyComment] = useState(false);
+  // const [confirmDeleteComment, setConfirmDeleteComment] = useState(false);
 
   const onComment = () => {
     try {
@@ -323,6 +326,15 @@ function Article(article) {
                       <div className="">
                         <p className="comment-content">{comment}</p>
                       </div>
+                    </div>
+                    <div>
+                      <i
+                        className="comment-options fa-solid fa-ellipsis"
+                        onClick={() => {
+                          console.log("comment options");
+                          // setCommentOptions(true);
+                        }}
+                      ></i>
                     </div>
                   </div>
                 ))}
