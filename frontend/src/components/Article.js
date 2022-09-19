@@ -21,6 +21,29 @@ function Article(article) {
   const [like, setLike] = useState(article.likes);
   const [isLiked, setIsLiked] = useState(false);
 
+  const [newComment, setNewComment] = useState(false);
+
+  const onComment = () => {
+    try {
+      axios
+        .post(
+          `http://localhost:3000/api/articles/${article.postRef}/comment`,
+          { newComment },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .catch(function (err) {
+          console.error(`Retour du serveur : ${err}`);
+        });
+    } catch (err) {
+      console.error(`Retour du serveur : ${err}`);
+    }
+  };
+
   const onLike = () => {
     setLike(isLiked ? like - 1 : like + 1);
 
@@ -274,22 +297,58 @@ function Article(article) {
                   }}
                 ></i>
                 <span className="likes-comments-qty">
-                  {article.comments} Commentaires
+                  {article.comments.length} Commentaires
                 </span>
               </div>
               {/* <i className="fa-regular fa-lg fa-paper-plane"></i> */}
             </div>
             {comment !== false ? (
-              <div className="post-comment">
-                <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
-                <input
-                  className="create-comment"
-                  placeholder="Ajouter un commentaire..."
-                  aria-label="Ajouter un commentaire"
-                  type="text"
-                ></input>
-                <i className="arrow-up fa-solid fa-lg fa-circle-arrow-up"></i>
-              </div>
+              <>
+                {article.comments.map((comment) => (
+                  <div
+                    key={article._id + comment}
+                    className="comment-container"
+                  >
+                    <div className="user-info">
+                      <img
+                        src="{article.user.profilePicture}"
+                        className="user-avatar"
+                        alt=""
+                      />
+                    </div>
+                    <div className="comment">
+                      <span className="comment-user-name">
+                        {article.user.name} {article.user.lastName}
+                      </span>
+                      <div className="">
+                        <p className="comment-content">{comment}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <div className="post-comment">
+                  <i className="face-smile fa-regular fa-lg fa-face-smile-beam"></i>
+                  <input
+                    className="create-comment"
+                    placeholder="Ajouter un commentaire..."
+                    aria-label="Ajouter un commentaire"
+                    type="text"
+                    name="comment"
+                    onChange={(e) => {
+                      setNewComment(e.target.value);
+                    }}
+                  ></input>
+                  <div
+                    className="arrow-up"
+                    name="post"
+                    type="submit"
+                    id="submit-comment"
+                    onClick={onComment}
+                  >
+                    <i className="fa-solid fa-lg fa-circle-arrow-up"></i>
+                  </div>
+                </div>
+              </>
             ) : null}
           </>
         )}

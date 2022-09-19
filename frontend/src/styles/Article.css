@@ -9,7 +9,7 @@
 }
 
 .article-post {
-    padding: 15px 0;
+    padding: 15px 0 0 0;
     position: relative;
 }
 
@@ -65,8 +65,7 @@
 .post-icons {
     justify-content: space-around;
     height: 20px;
-    margin: 5px;
-    margin-top: 10px;
+    margin: 10px 5px 15px 5px;
 }
 
 .post-liked {
@@ -109,7 +108,6 @@
     border-radius: 25px;
     padding: 5px 10px;
     margin: 15px 5px;
-    margin-bottom: 0;
 }
 
 .create-comment {
@@ -123,8 +121,40 @@
     text-overflow: ellipsis;
 }
 
+.comment-container {
+    margin: 10px; 
+    display: flex;   
+}
+.comment {
+    width: 100%;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+}
+
+.user-info {
+    display: flex;
+}
+
+.comment-user-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+
+}
+
+.comment-content {
+    margin: 0;
+    margin-top: 5px;
+}
+
 .face-smile, .arrow-up, .articleDate {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.arrow-up:hover {
+    transform: scale(1.2);
+    transition: all 150ms ease-in-out;
 }
 
 .face-smile:hover {

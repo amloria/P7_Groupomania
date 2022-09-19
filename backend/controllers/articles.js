@@ -147,3 +147,25 @@ exports.likeArticle = (req, res, next) => {
       res.status(400).json({ error });
     });
 };
+
+exports.createComment = (req, res, next) => {
+  const comment = req.body.newComment;
+  Article.findOne({ _id: req.params.id })
+    .then(() => {
+      Article.updateOne(
+        { _id: req.params.id },
+        {
+          $push: { comments: comment },
+        }
+      )
+        .then(() => {
+          res.status(201).json({ message: "Comment saved successfully!" });
+        })
+        .catch((error) => {
+          res.status(400).json({ error });
+        });
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
