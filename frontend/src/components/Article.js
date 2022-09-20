@@ -7,6 +7,8 @@ import profileImage from "../assets/user-avatar.webp";
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function Article(article) {
+  // article.comments.map((comment) => console.log(comment));
+
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
 
@@ -28,7 +30,7 @@ function Article(article) {
       axios
         .post(
           `http://localhost:3000/api/articles/${article.postRef}/comment`,
-          { newComment },
+          { newComment, currentUser },
           {
             headers: {
               "Content-Type": "application/json",
@@ -36,6 +38,9 @@ function Article(article) {
             },
           }
         )
+        .then(() => {
+          console.log("Crée !");
+        })
         .catch(function (err) {
           console.error(`Retour du serveur : ${err}`);
         });
@@ -311,22 +316,26 @@ function Article(article) {
               <>
                 {article.comments.map((comment) => (
                   <div
-                    key={article._id + comment}
+                    key={comment.userKeyRef + comment.creation}
                     className="comment-container"
                   >
                     <div className="user-info">
                       <img
-                        src="{article.user.profilePicture}"
+                        src={
+                          comment.userProfilePicture !== ""
+                            ? comment.userProfilePicture
+                            : profileImage
+                        }
                         className="user-avatar"
                         alt=""
                       />
                     </div>
                     <div className="comment">
                       <span className="comment-user-name">
-                        {article.user.name} {article.user.lastName}
+                        {comment.userName} {comment.userLastName}
                       </span>
                       <div className="">
-                        <p className="comment-content">{comment}</p>
+                        <p className="comment-content">{comment.comment}</p>
                       </div>
                     </div>
                     <div>

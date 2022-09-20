@@ -140,7 +140,14 @@ exports.likeArticle = (req, res, next) => {
 };
 
 exports.createComment = (req, res, next) => {
-  const comment = req.body.newComment;
+  const comment = {
+    comment: req.body.newComment,
+    userProfilePicture: req.body.currentUser.profilePicture,
+    userName: req.body.currentUser.name,
+    userLastName: req.body.currentUser.lastName,
+    userKeyRef: req.body.currentUser.keyRef,
+    creation: Date.now(),
+  };
   Article.findOne({ _id: req.params.id })
     .then(() => {
       Article.updateOne(
