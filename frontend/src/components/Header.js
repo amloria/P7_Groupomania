@@ -43,14 +43,7 @@ function Header() {
                   onClick={monCompte}
                   title="Mon compte"
                 >
-                  <i class="fa-solid fa-lg fa-user"></i>
-                </button>
-                <button
-                  className="header-menu-option"
-                  onClick={logout}
-                  title="Se déconnecter"
-                >
-                  <i class="fa-solid fa-lg fa-arrow-right-from-bracket"></i>
+                  <i className="fa-solid fa-lg fa-user"></i>
                 </button>
                 <button
                   className="header-nav-bar"
@@ -60,6 +53,13 @@ function Header() {
                   }}
                 >
                   <i className="fa-solid fa-lg fa-bars"></i>
+                </button>
+                <button
+                  className="header-menu-option"
+                  onClick={logout}
+                  title="Se déconnecter"
+                >
+                  <i className="fa-solid fa-lg fa-arrow-right-from-bracket"></i>
                 </button>
               </>
             ) : (

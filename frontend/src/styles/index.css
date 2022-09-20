@@ -22,3 +22,27 @@ a {
 .main-container {
   min-height: calc(100vh - 125px);
 }
+
+@media screen AND (min-width: 768px) {
+    .main-feed {
+      display: flex;
+      justify-content: center;
+    }
+    .profile-section {
+      width: calc(100% / 3.5);
+      margin: 0 5px 15px 15px;
+    }
+    .profile-container {
+      position: sticky;
+      top: 75px
+    }
+    .new-post, .article-post {
+      margin: 15px 15px;
+    }
+}
+
+@media screen AND (min-width: 992px) {
+  .profile-section {
+    width: calc(100% / 4.5);
+  }
+}

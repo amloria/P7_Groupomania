@@ -10,8 +10,36 @@ import Footer from "../components/Footer";
 
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
+
 
 function Feed() { 
+
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    
+    axios
+      .get(`http://localhost:3000/api/auth/profile`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+          setUserInfo(res.data)
+      })
+      .catch(function (err) {
+        console.error(`Retour du serveur : ${err}`); // Show error if necessary
+      });
+
+      return () => {
+        // console.log(userInfo);
+      } 
+      
+      
+  }, [userInfo]);
+
+
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -38,20 +66,24 @@ function Feed() {
     return (<>
         <Header />
         <div className="main-feed">
-          <Profile />
-          <CreateArticle />
-          {articles.map((article) => (
-              <Article 
-              key={article._id} 
-              postRef={article._id}
-              description={article.description}
-              imageUrl={article.imageUrl}
-              date={article.createdAt}
-              user={article.user[0]}
-              likes={article.likes}
-              comments={article.comments}
-              />
-          ))}
+          <div className="profile-section">
+            <Profile />
+          </div>
+          <div className="feed-section">
+            <CreateArticle />
+            {articles.map((article) => (
+                <Article 
+                key={article._id} 
+                postRef={article._id}
+                description={article.description}
+                imageUrl={article.imageUrl}
+                date={article.createdAt}
+                user={article.user[0]}
+                likes={article.likes}
+                comments={article.comments}
+                />
+            ))}
+          </div>
         </div>
         <Footer />
     </>)
