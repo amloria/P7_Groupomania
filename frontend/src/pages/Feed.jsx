@@ -17,6 +17,8 @@ function Feed() {
 
   const [userInfo, setUserInfo] = useState({});
 
+  // console.log(userInfo);
+
   useEffect(() => {
     
     axios
@@ -37,7 +39,7 @@ function Feed() {
       } 
       
       
-  }, [userInfo]);
+  }, []);
 
 
   const [articles, setArticles] = useState([]);
