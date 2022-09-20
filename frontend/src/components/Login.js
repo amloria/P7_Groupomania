@@ -36,6 +36,10 @@ function Login() {
         }
       })
       .then((res) => {
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify(res.currentUser)
+        );
         window.localStorage.setItem("userKeyRef", res.keyRef);
         window.localStorage.setItem("token", res.token);
         setUserKeyRef(res.keyRef);

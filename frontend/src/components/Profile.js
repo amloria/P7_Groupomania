@@ -3,20 +3,37 @@ import "../styles/Profile.css";
 import coverImage from "../assets/teamwork-groupomania.webp";
 import profileImage from "../assets/user-avatar.webp";
 
-function Profile(user) {
-  // console.log(user);
+const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+
+function Profile() {
   return (
     <>
       <div className="profile-container">
         <div className="cover-container">
-          <img className="cover-image" src={coverImage} alt="" />
+          <img
+            className="cover-image"
+            src={
+              currentUser.coverPicture !== ""
+                ? currentUser.coverPicture
+                : coverImage
+            }
+            alt=""
+          />
         </div>
         <div className="user-info-container">
-          <img className="profile-image" src={profileImage} alt="" />
+          <img
+            className="profile-image"
+            src={
+              currentUser.profilePicture !== ""
+                ? currentUser.profilePicture
+                : profileImage
+            }
+            alt=""
+          />
           <h3 className="profile-name">
-            {user.name} {user.lastName} Prénom Nom
+            {currentUser.name} {currentUser.lastName}
           </h3>
-          <span className="user-position">Position</span>
+          <span className="user-position">{currentUser.position}</span>
         </div>
       </div>
     </>

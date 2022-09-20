@@ -10,37 +10,9 @@ import Footer from "../components/Footer";
 
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
 
 
 function Feed() { 
-
-  const [userInfo, setUserInfo] = useState({});
-
-  // console.log(userInfo);
-
-  useEffect(() => {
-    
-    axios
-      .get(`http://localhost:3000/api/auth/profile`, {
-        headers: {
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-          setUserInfo(res.data)
-      })
-      .catch(function (err) {
-        console.error(`Retour du serveur : ${err}`); // Show error if necessary
-      });
-
-      return () => {
-        // console.log(userInfo);
-      } 
-      
-      
-  }, []);
-
 
   const [articles, setArticles] = useState([]);
 

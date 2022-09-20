@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 
 import "../styles/CreateArticle.css";
+import profileImage from "../assets/user-avatar.webp";
+
+const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function CreateArticle() {
-  // const navigate = useNavigate();
-  // const refreshPage = () => {
-  //   navigate(0);
-  // };
   const [newArticle, setNewArticle] = useState(true);
 
   const [file, setFile] = useState(null);
@@ -36,13 +34,21 @@ function CreateArticle() {
   return newArticle ? (
     <div className="new-post">
       <div>
-        <img src="{dataUser.profilePicture}" className="user-avatar" alt="" />
+        <img
+          src={
+            currentUser.profilePicture !== ""
+              ? currentUser.profilePicture
+              : profileImage
+          }
+          className="user-avatar"
+          alt=""
+        />
         <button
           className="create-post"
           title="Créer une nouvelle publication"
           onClick={() => setNewArticle(false)}
         >
-          <span>Salut, quoi de neuf ?</span>
+          <span>Salut {currentUser.name}, quoi de neuf ?</span>
           <i className="fa-regular fa-lg fa-image"></i>
         </button>
       </div>
@@ -57,12 +63,16 @@ function CreateArticle() {
       </div>
       <div className="container-user">
         <img
-          src="{article.user.profilePicture}"
+          src={
+            currentUser.profilePicture !== ""
+              ? currentUser.profilePicture
+              : profileImage
+          }
           className="user-avatar"
           alt=""
         />
         <span className="user-name">
-          Prénom{/* {dataUser.name} {dataUser.lastName} */}
+          {currentUser.name} {currentUser.lastName}
         </span>
       </div>
       <form

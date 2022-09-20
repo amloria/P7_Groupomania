@@ -1,15 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 import "../styles/Article.css";
+import profileImage from "../assets/user-avatar.webp";
+
+const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function Article(article) {
-  // const navigate = useNavigate();
-  // const refreshPage = () => {
-  //   navigate(0);
-  // };
-
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
 
@@ -57,7 +54,6 @@ function Article(article) {
           { isLiked },
           {
             headers: {
-              // "Content-Type": "application/json",
               authorization: "Bearer " + localStorage.getItem("token"),
             },
           }
@@ -115,7 +111,11 @@ function Article(article) {
       <article className="article-post">
         <div className="article-top">
           <img
-            src="{article.user.profilePicture}"
+            src={
+              currentUser.profilePicture !== ""
+                ? currentUser.profilePicture
+                : profileImage
+            }
             className="user-avatar"
             alt=""
           />
