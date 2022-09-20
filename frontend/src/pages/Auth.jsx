@@ -5,6 +5,7 @@ import Login from "../components/Login";
 import Signup from "../components/Signup";
 import Feed from "../pages/Feed";
 import PrivateRoutes from "../components/PrivateRoutes";
+import Profile from "../pages/Profile";
 
 
 function Auth() {
@@ -16,6 +17,7 @@ function Auth() {
           <Route path="signup" element={<Signup />} />
           <Route element={<PrivateRoutes />}>
             <Route path="feed" element={<Feed />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
