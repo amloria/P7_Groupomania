@@ -135,8 +135,8 @@ function Article(article) {
         <div className="article-top">
           <img
             src={
-              currentUser.profilePicture !== ""
-                ? currentUser.profilePicture
+              article.user.profilePicture !== ""
+                ? article.user.profilePicture
                 : profileImage
             }
             className="user-avatar"

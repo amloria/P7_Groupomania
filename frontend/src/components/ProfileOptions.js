@@ -3,6 +3,8 @@ import "../styles/ProfileOptions.css";
 import coverImage from "../assets/teamwork-groupomania.webp";
 import profileImage from "../assets/user-avatar.webp";
 
+import axios from "axios";
+
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function ProfileOptions() {
@@ -10,7 +12,31 @@ function ProfileOptions() {
 
   const modifyProfile = (e) => {
     e.preventDefault();
-    console.log("coucou");
+
+    let dataUser = new FormData(e.target);
+
+    try {
+      axios
+        .put(
+          `http://localhost:3000/api/auth/profile/${currentUser._id}`,
+          dataUser,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(function (err) {
+          console.error(`Retour du serveur : ${err}`);
+        });
+    } catch (err) {
+      console.error(`Retour du serveur : ${err}`);
+    }
+
     setModifyUserDetails(false);
   };
 
@@ -94,13 +120,13 @@ function ProfileOptions() {
                 <label>Image de profil</label>
                 <input
                   id="file"
-                  name="profileImage"
+                  name="image"
                   className=""
                   type="file"
                   accept="image/jpeg, image/jpg, image/png"
                 ></input>
               </div>
-              <div className="select-new-image">
+              {/* <div className="select-new-image">
                 <label>Photo de couverture</label>
                 <input
                   id="file"
@@ -109,7 +135,7 @@ function ProfileOptions() {
                   type="file"
                   accept="image/jpeg, image/jpg, image/png"
                 ></input>
-              </div>
+              </div> */}
               <div>
                 <button
                   className="btn-save"
