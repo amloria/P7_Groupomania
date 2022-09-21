@@ -174,7 +174,7 @@
     font-size: 12px;
 }
 
-.edit-delete button {
+.edit-delete button, .delete-comment {
     padding: 3px;
     margin-bottom: 3px;
     font-size: 12px;
@@ -189,7 +189,7 @@
     right: 40px;
 }
 
-.edit-delete button:hover {
+.edit-delete button:hover, .delete-comment:hover {
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0.6);
 }
@@ -208,4 +208,10 @@
 
 .modify-post-bottom {
     padding: 15px;
+}
+
+.delete-comment {
+    position: absolute;
+    top: 10px;
+    right: 30px;
 }

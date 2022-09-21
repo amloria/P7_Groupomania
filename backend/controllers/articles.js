@@ -167,3 +167,33 @@ exports.createComment = (req, res, next) => {
       res.status(400).json({ error });
     });
 };
+
+exports.deleteComment = (req, res, next) => {
+  Article.findOne({ _id: req.params.id })
+    .then((article) => {
+      if (/*article.userId !== req.auth.userId &&*/ req.auth.isAdmin !== true) {
+        res.status(401).json({ message: "Not authorized" });
+      } else {
+        let comments = article.comments;
+
+        const indexOfComment = comments.findIndex((comment) => {
+          return comment.creation == req.params.creation;
+        });
+        Article.updateOne(
+          { _id: req.params.id },
+          {
+            $pull: { comments: comments[indexOfComment] },
+          }
+        )
+          .then(() => {
+            res.status(200).json({ message: "Comment deleted successfully!" });
+          })
+          .catch((error) => {
+            res.status(400).json({ error });
+          });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
+};

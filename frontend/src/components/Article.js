@@ -7,8 +7,6 @@ import profileImage from "../assets/user-avatar.webp";
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function Article(article) {
-  // article.comments.map((comment) => console.log(comment));
-
   const [comment, setComment] = useState(false);
   const [options, setOptions] = useState(false);
 
@@ -23,7 +21,9 @@ function Article(article) {
   const [newComment, setNewComment] = useState(false);
   // const [commentOptions, setCommentOptions] = useState(false);
   // const [modifyComment, setModifyComment] = useState(false);
-  // const [confirmDeleteComment, setConfirmDeleteComment] = useState(false);
+
+  const [confirmDeleteComment, setConfirmDeleteComment] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState({});
 
   const onComment = () => {
     try {
@@ -41,6 +41,27 @@ function Article(article) {
         .then(() => {
           console.log("Crée !");
         })
+        .catch(function (err) {
+          console.error(`Retour du serveur : ${err}`);
+        });
+    } catch (err) {
+      console.error(`Retour du serveur : ${err}`);
+    }
+  };
+
+  const onDeleteComment = () => {
+    // console.log(commentToDelete.creation);
+    try {
+      axios
+        .put(
+          `http://localhost:3000/api/articles/${article.postRef}/comments/${commentToDelete.creation}`,
+          commentToDelete,
+          {
+            headers: {
+              authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .catch(function (err) {
           console.error(`Retour du serveur : ${err}`);
         });
@@ -339,13 +360,34 @@ function Article(article) {
                       </div>
                     </div>
                     <div>
-                      <i
-                        className="comment-options fa-solid fa-ellipsis"
-                        onClick={() => {
-                          console.log("comment options");
-                          // setCommentOptions(true);
-                        }}
-                      ></i>
+                      {confirmDeleteComment ? (
+                        <>
+                          <button
+                            className="delete-comment"
+                            type="button"
+                            onClick={() => {
+                              onDeleteComment();
+                              setConfirmDeleteComment(false);
+                            }}
+                          >
+                            Supprimer
+                          </button>
+                          <i
+                            className="comment-options fa-solid fa-ellipsis"
+                            onClick={() => {
+                              setConfirmDeleteComment(false);
+                            }}
+                          ></i>
+                        </>
+                      ) : (
+                        <i
+                          className="comment-options fa-solid fa-ellipsis"
+                          onClick={() => {
+                            setCommentToDelete(comment);
+                            setConfirmDeleteComment(true);
+                          }}
+                        ></i>
+                      )}
                     </div>
                   </div>
                 ))}

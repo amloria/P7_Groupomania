@@ -13,5 +13,6 @@ router.put("/:id", auth, multer, articlesCtrl.modifyArticle);
 router.delete("/:id", auth, articlesCtrl.deleteArticle);
 router.post("/:id/like", auth, articlesCtrl.likeArticle);
 router.post("/:id/comment", auth, articlesCtrl.createComment);
+router.put("/:id/comments/:creation", auth, articlesCtrl.deleteComment);
 
 module.exports = router;
