@@ -38,9 +38,6 @@ function Article(article) {
             },
           }
         )
-        .then(() => {
-          console.log("Crée !");
-        })
         .catch(function (err) {
           console.error(`Retour du serveur : ${err}`);
         });

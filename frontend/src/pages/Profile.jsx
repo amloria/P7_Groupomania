@@ -1,18 +1,19 @@
 import React from "react";
 
 import Header from "../components/Header";
-import Profile from "../components/Profile";
+import ProfileOptions from "../components/ProfileOptions";
 import Footer from "../components/Footer";
 
 import "../styles/Profile.css";
 
 function UserProfile() {
+
     return (<>
         <Header />
         <div className="profile-page-container">
             <div className="user-profile-container">
-                <Profile />
-            </div>
+                <ProfileOptions />
+            </div>         
         </div>
         <Footer />
     </>);
