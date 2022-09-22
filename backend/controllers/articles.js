@@ -112,7 +112,7 @@ exports.likeArticle = (req, res, next) => {
           }
         )
           .then(() => {
-            res.status(201).json({ message: "Like +1 !" });
+            res.status(201).json({ message: "Post liked !" });
           })
           .catch((error) => {
             res.status(400).json({ error });
@@ -127,7 +127,7 @@ exports.likeArticle = (req, res, next) => {
           }
         )
           .then(() => {
-            res.status(200).json({ message: "Like 0 !" });
+            res.status(200).json({ message: "Post unliked !" });
           })
           .catch((error) => {
             res.status(400).json({ error });
@@ -171,7 +171,7 @@ exports.createComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
   Article.findOne({ _id: req.params.id })
     .then((article) => {
-      if (/*article.userId !== req.auth.userId &&*/ req.auth.isAdmin !== true) {
+      if (!req.auth.isAdmin) {
         res.status(401).json({ message: "Not authorized" });
       } else {
         let comments = article.comments;

@@ -11,9 +11,8 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import { useEffect } from "react";
 
-
 function Feed() { 
-
+  
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {

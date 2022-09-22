@@ -8,6 +8,9 @@ import Footer from "./Footer";
 
 function Login() {
   let navigate = useNavigate();
+  const refreshPage = () => {
+    navigate(0);
+  };
   const [userAuth, setUserAuth] = useState(false);
   const [userKeyRef, setUserKeyRef] = useState(null);
 
@@ -44,6 +47,7 @@ function Login() {
         window.localStorage.setItem("token", res.token);
         setUserKeyRef(res.keyRef);
         navigate("/feed", { replace: true });
+        refreshPage();
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);

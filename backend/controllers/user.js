@@ -113,17 +113,19 @@ exports.modifyUser = (req, res, next) => {
 
   User.findOne({ _id: req.params.id })
     .then((user) => {
-      // if (user._id !== req.auth.userId && !req.auth.isAdmin) {
-      //   res.status(403).json({ message: "Not authorized" });
-      // } else {
-      User.updateOne(
-        { _id: req.params.id },
-        { ...dataUser, _id: req.params.id }
-      )
-        .then(() => res.status(200).json({ message: "Updated successfully!" }))
-        .catch((error) => res.status(401).json({ error }));
+      if (user._id != req.auth.userId && !req.auth.isAdmin) {
+        res.status(403).json({ message: "Not authorized" });
+      } else {
+        User.updateOne(
+          { _id: req.params.id },
+          { ...dataUser, _id: req.params.id }
+        )
+          .then(() =>
+            res.status(200).json({ message: "Updated successfully!" })
+          )
+          .catch((error) => res.status(401).json({ error }));
+      }
     })
-    // })
     .catch((error) => {
       res.status(400).json({ error });
     });
