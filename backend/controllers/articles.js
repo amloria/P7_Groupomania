@@ -58,20 +58,22 @@ exports.modifyArticle = (req, res, next) => {
         }`,
       }
     : { ...req.body };
-
   Article.findOne({ _id: req.params.id })
     .then((article) => {
       if (article.userId != req.auth.userId && !req.auth.isAdmin) {
         res.status(403).json({ message: "Not authorized" });
       } else {
-        Article.updateOne(
-          { _id: req.params.id },
-          { ...articleObject, _id: req.params.id }
-        )
-          .then(() =>
-            res.status(200).json({ message: "Updated successfully!" })
+        const filename = article.imageUrl.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
+          Article.updateOne(
+            { _id: req.params.id },
+            { ...articleObject, _id: req.params.id }
           )
-          .catch((error) => res.status(401).json({ error }));
+            .then(() =>
+              res.status(200).json({ message: "Updated successfully!" })
+            )
+            .catch((error) => res.status(401).json({ error }));
+        });
       }
     })
     .catch((error) => {

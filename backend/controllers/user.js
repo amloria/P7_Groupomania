@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
+const fs = require("fs");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -116,14 +117,17 @@ exports.modifyUser = (req, res, next) => {
       if (user._id != req.auth.userId && !req.auth.isAdmin) {
         res.status(403).json({ message: "Not authorized" });
       } else {
-        User.updateOne(
-          { _id: req.params.id },
-          { ...dataUser, _id: req.params.id }
-        )
-          .then(() =>
-            res.status(200).json({ message: "Updated successfully!" })
+        const filename = user.profilePicture.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
+          User.updateOne(
+            { _id: req.params.id },
+            { ...dataUser, _id: req.params.id }
           )
-          .catch((error) => res.status(401).json({ error }));
+            .then(() =>
+              res.status(200).json({ message: "Updated successfully!" })
+            )
+            .catch((error) => res.status(401).json({ error }));
+        });
       }
     })
     .catch((error) => {
