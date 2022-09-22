@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# Groupomania intranet application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-From the "backtend" folder of the project directory, you can run:
+From the "backend" folder of the project directory, you can run:
 
 ### `nodemon server`
 
