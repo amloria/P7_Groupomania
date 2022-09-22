@@ -101,6 +101,7 @@ exports.modifyUser = (req, res, next) => {
   const dataUser = req.file
     ? {
         ...req.body.dataUser,
+        position: req.body.userPosition,
         profilePicture: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
@@ -108,7 +109,7 @@ exports.modifyUser = (req, res, next) => {
         //   req.file.filename
         // }`,
       }
-    : { ...req.body };
+    : { ...req.body, position: req.body.userPosition };
 
   User.findOne({ _id: req.params.id })
     .then((user) => {
