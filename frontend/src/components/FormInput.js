@@ -3,7 +3,7 @@ import "../styles/Form.css";
 
 const FormInput = (props) => {
   const [checked, setChecked] = useState(false);
-  const { label, errormessage, onChange, id, ...inputProps } = props;
+  const { errormessage, onChange, ...input } = props;
 
   const handleBlur = (e) => {
     setChecked(true);
@@ -12,7 +12,7 @@ const FormInput = (props) => {
   return (
     <>
       <input
-        {...inputProps}
+        {...input}
         onChange={onChange}
         onBlur={handleBlur}
         ischecked={checked.toString()}
