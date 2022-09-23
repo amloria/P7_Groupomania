@@ -68,6 +68,39 @@ button:hover {
     cursor: pointer;
 }
 
-.auth-error {
-    
+.auth-success {
+    padding: 15px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: rgba(157, 239, 159, 0.388);
+    color: green;
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+}
+
+.auth-success h4 {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.auth-success p {
+    margin-bottom: 0;
+}
+
+.form-input span {
+    color: red;
+    display: none;
+}
+
+.form-input input:invalid[ischecked="true"] ~ span {
+    display: block;
+}
+
+.error-message {
+    color: red;
+    padding: 5px;
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: rgba(255, 176, 176, 0.3);
 }

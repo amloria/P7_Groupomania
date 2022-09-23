@@ -13,6 +13,7 @@ function Login() {
   };
   const [userAuth, setUserAuth] = useState(false);
   const [userKeyRef, setUserKeyRef] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   window.localStorage.setItem("userAuth", userAuth);
   window.localStorage.setItem("userKeyRef", userKeyRef);
@@ -51,6 +52,7 @@ function Login() {
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
+        setErrorMessage(true);
       });
   }
 
@@ -85,6 +87,9 @@ function Login() {
                 S'identifier
               </button>
             </div>
+            {errorMessage ? (
+              <span className="error-message">Paire identifiant/mot de passe incorrecte</span>
+            ) : null}
             <div className="line">Première visite sur l'app ?</div>
             <div>
               <Link to="/signup" element={<Signup />}>
