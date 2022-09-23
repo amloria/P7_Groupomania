@@ -137,7 +137,7 @@ function Article(article) {
             src={
               article.user.profilePicture !== ""
                 ? article.user.profilePicture
-                : profileImage
+                : { profileImage }
             }
             className="user-avatar"
             alt=""
