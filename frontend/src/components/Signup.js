@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Form.css";
 import { useNavigate, Outlet, Link } from "react-router-dom";
 
@@ -8,6 +8,8 @@ import Footer from "./Footer";
 
 function Signup() {
   let navigate = useNavigate();
+
+  const [error, setError] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -36,6 +38,7 @@ function Signup() {
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
+        setError(true);
       });
   }
 
@@ -89,6 +92,18 @@ function Signup() {
               <button name="signup" type="submit" id="signup">
                 S'inscrire
               </button>
+              {error ? (
+                <div className="auth-error">
+                  <h4>
+                    Veuillez vérifier les éléments suivants et réessayer :
+                  </h4>
+                  <span>
+                    L'adresse e-mail contient le symbole "@". Le mot de passe
+                    contient au moins une lettre majuscule, deux chiffres et un
+                    total de huit caractères
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div className="line">Déjà inscrit(e) ?</div>
             <div>

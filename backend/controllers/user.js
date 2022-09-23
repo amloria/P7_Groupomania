@@ -102,7 +102,6 @@ exports.modifyUser = (req, res, next) => {
   const dataUser = req.file
     ? {
         ...req.body.dataUser,
-        position: req.body.userPosition,
         profilePicture: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
@@ -110,7 +109,7 @@ exports.modifyUser = (req, res, next) => {
         //   req.file.filename
         // }`,
       }
-    : { ...req.body, position: req.body.userPosition };
+    : { ...req.body };
 
   User.findOne({ _id: req.params.id })
     .then((user) => {
@@ -121,7 +120,13 @@ exports.modifyUser = (req, res, next) => {
         fs.unlink(`images/${filename}`, () => {
           User.updateOne(
             { _id: req.params.id },
-            { ...dataUser, _id: req.params.id }
+            {
+              ...dataUser,
+              // _id: req.params.id,
+              position: req.body.userPosition,
+              name: req.body.name,
+              lastName: req.body.lastName,
+            }
           )
             .then(() =>
               res.status(200).json({ message: "Updated successfully!" })

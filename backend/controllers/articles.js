@@ -58,6 +58,7 @@ exports.modifyArticle = (req, res, next) => {
         }`,
       }
     : { ...req.body };
+    
   Article.findOne({ _id: req.params.id })
     .then((article) => {
       if (article.userId != req.auth.userId && !req.auth.isAdmin) {
