@@ -64,7 +64,14 @@ exports.login = (req, res, next) => {
                 .json({ message: "Paire identifiant/mot de passe incorrecte" });
             } else {
               res.status(200).json({
-                currentUser: user,
+                currentUser: {
+                  name: user.name,
+                  lastName: user.lastName,
+                  profilePicture: user.profilePicture,
+                  coverPicture: user.coverPicture,
+                  position: user.position,
+                  _id: user._id,
+                },
                 keyRef: user.keyRef,
                 token: jwt.sign(
                   {
@@ -102,7 +109,7 @@ exports.modifyUser = (req, res, next) => {
   const dataUser = req.file
     ? {
         ...req.body,
-        profilePicture: `${req.protocol}://${req.get("host")}/images/${
+        profilePicture: `${req.protocol}://${req.get("host")}/images/users/${
           req.file.filename
         }`,
         // coverPicture: `${req.protocol}://${req.get("host")}/images/${
@@ -111,7 +118,7 @@ exports.modifyUser = (req, res, next) => {
       }
     : { ...req.body };
 
-  console.log(dataUser);
+  // console.log(dataUser);
 
   User.findOne({ _id: req.params.id })
     .then((user) => {
@@ -119,8 +126,8 @@ exports.modifyUser = (req, res, next) => {
         res.status(403).json({ message: "Not authorized" });
       } else {
         if (user.profilePicture !== req.file.filename) {
-          const filename = user.profilePicture.split("/images/")[1];
-          fs.unlink(`images/${filename}`, () => {});
+          const filename = user.profilePicture.split("/images/users/")[1];
+          fs.unlink(`images/users/${filename}`, () => {});
         }
         User.updateOne(
           { _id: req.params.id },
