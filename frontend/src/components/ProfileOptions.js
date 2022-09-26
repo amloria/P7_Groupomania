@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import "../styles/ProfileOptions.css";
 import coverImage from "../assets/teamwork-groupomania.webp";
 import profileImage from "../assets/user-avatar.webp";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function ProfileOptions() {
+  let navigate = useNavigate();
+  const refreshPage = () => {
+    navigate(0);
+  };
   const [modifyUserDetails, setModifyUserDetails] = useState(false);
 
   const modifyProfile = (e) => {
@@ -28,7 +33,14 @@ function ProfileOptions() {
           }
         )
         .then((res) => {
-          console.log(res);
+          let user = JSON.parse(window.localStorage.getItem("currentUser"));
+          let dataToUpdate = res.data.userUpdate;
+          user.name = dataToUpdate.name;
+          user.lastName = dataToUpdate.lastName;
+          user.position = dataToUpdate.userPosition;
+          user.profilePicture = dataToUpdate.profilePicture;
+          window.localStorage.setItem("currentUser", JSON.stringify(user));
+          refreshPage();
         })
         .catch(function (err) {
           console.error(`Retour du serveur : ${err}`);
@@ -107,7 +119,7 @@ function ProfileOptions() {
                 ></input>
               </div>
               <div>
-                <label>Position actuelle</label>
+                <label>Poste</label>
                 <input
                   type="text"
                   name="userPosition"

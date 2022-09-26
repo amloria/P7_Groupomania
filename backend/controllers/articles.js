@@ -8,6 +8,7 @@ exports.createArticle = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
+    // imageUrl: `${req.file.filename}`,
     keyRef: req.auth.keyRef,
   });
   article
@@ -52,34 +53,73 @@ exports.getAllArticles = (req, res, next) => {
 exports.modifyArticle = (req, res, next) => {
   const articleObject = req.file
     ? {
-        ...req.body.article,
+        ...req.body.dataArticle,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
+        description: req.body.description,
       }
     : { ...req.body };
-    
+
   Article.findOne({ _id: req.params.id })
     .then((article) => {
       if (article.userId != req.auth.userId && !req.auth.isAdmin) {
         res.status(403).json({ message: "Not authorized" });
       } else {
-        const filename = article.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          Article.updateOne(
-            { _id: req.params.id },
-            { ...articleObject, _id: req.params.id }
+        if (article.imageUrl !== req.file.filename) {
+          const filename = article.imageUrl.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {});
+        }
+        Article.updateOne(
+          { _id: req.params.id },
+          {
+            ...articleObject,
+            // _id: req.params.id,
+          }
+        )
+          .then(() =>
+            res.status(200).json({ message: "Updated successfully!" })
           )
-            .then(() =>
-              res.status(200).json({ message: "Updated successfully!" })
-            )
-            .catch((error) => res.status(401).json({ error }));
-        });
+          .catch((error) => res.status(401).json({ error }));
       }
     })
     .catch((error) => {
       res.status(400).json({ error });
     });
+
+  // ****** original version ****** //
+
+  // const articleObject = req.file
+  //   ? {
+  //       ...req.body.article,
+  //       imageUrl: `${req.protocol}://${req.get("host")}/images/${
+  //         req.file.filename
+  //       }`,
+  //     }
+  //   : { ...req.body };
+
+  // Article.findOne({ _id: req.params.id })
+  //   .then((article) => {
+  //     if (article.userId != req.auth.userId && !req.auth.isAdmin) {
+  //       res.status(403).json({ message: "Not authorized" });
+  //     } else {
+  //       // if req.file ()
+  //       const filename = article.imageUrl.split("/images/")[1];
+  //       fs.unlink(`images/${filename}`, () => {
+  //         Article.updateOne(
+  //           { _id: req.params.id },
+  //           { ...articleObject, _id: req.params.id }
+  //         )
+  //           .then(() =>
+  //             res.status(200).json({ message: "Updated successfully!" })
+  //           )
+  //           .catch((error) => res.status(401).json({ error }));
+  //       });
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     res.status(400).json({ error });
+  //   });
 };
 
 exports.deleteArticle = (req, res, next) => {

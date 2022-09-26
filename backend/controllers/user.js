@@ -101,7 +101,7 @@ exports.profile = (req, res, next) => {
 exports.modifyUser = (req, res, next) => {
   const dataUser = req.file
     ? {
-        ...req.body.dataUser,
+        ...req.body,
         profilePicture: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
@@ -111,28 +111,30 @@ exports.modifyUser = (req, res, next) => {
       }
     : { ...req.body };
 
+  console.log(dataUser);
+
   User.findOne({ _id: req.params.id })
     .then((user) => {
       if (user._id != req.auth.userId && !req.auth.isAdmin) {
         res.status(403).json({ message: "Not authorized" });
       } else {
-        const filename = user.profilePicture.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          User.updateOne(
-            { _id: req.params.id },
-            {
-              ...dataUser,
-              // _id: req.params.id,
-              position: req.body.userPosition,
-              name: req.body.name,
-              lastName: req.body.lastName,
-            }
+        if (user.profilePicture !== req.file.filename) {
+          const filename = user.profilePicture.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {});
+        }
+        User.updateOne(
+          { _id: req.params.id },
+          {
+            ...dataUser,
+            // _id: req.params.id,
+          }
+        )
+          .then(() =>
+            res
+              .status(200)
+              .json({ message: "Updated successfully!", userUpdate: dataUser })
           )
-            .then(() =>
-              res.status(200).json({ message: "Updated successfully!" })
-            )
-            .catch((error) => res.status(401).json({ error }));
-        });
+          .catch((error) => res.status(401).json({ error }));
       }
     })
     .catch((error) => {

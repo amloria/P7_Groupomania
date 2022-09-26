@@ -140,9 +140,8 @@ function Signup() {
         <main className="form-container">
           <form className="form-signup" onSubmit={onSubmit}>
             {formInputs.map((input) => (
-              <div className="form-input">
+              <div key={input.id} className="form-input">
                 <FormInput
-                  key={input.id}
                   {...input}
                   value={formValues[input.name]}
                   onChange={onChange}
