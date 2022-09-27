@@ -1,4 +1,5 @@
 const multer = require("multer");
+const { v4: imgID } = require("uuid");
 
 const MIME_TYPES = {
   "image/jpg": "jpg",
@@ -9,13 +10,11 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "images");
+    callback(null, "images/posts");
   },
   filename: (req, file, callback) => {
-    // let name = file.name.split(" ", ".").join("_");
-    // name = name.substring(0, str.length - 4);
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, /*name +*/ Date.now() + "." + extension);
+    callback(null, "post_" + imgID() + "." + extension);
   },
 });
 

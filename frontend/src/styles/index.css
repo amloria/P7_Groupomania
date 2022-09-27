@@ -49,3 +49,15 @@ a {
     justify-content: space-around;
   }
 }
+
+@media screen AND (min-width: 1199px) {
+  .profile-section {
+    width: calc(100% / 6);
+  }
+}
+
+@media screen AND (min-width: 1599px) {
+  .profile-section {
+    width: calc(100% / 7.5);
+  }
+}

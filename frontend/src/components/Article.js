@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import "../styles/Article.css";
 import profileImage from "../assets/user-avatar.webp";
 
+const usersImgUrl = process.env.REACT_APP_USERS_IMG_URL;
+const postsImgUrl = process.env.REACT_APP_POSTS_IMG_URL;
+
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function Article(article) {
@@ -47,7 +50,6 @@ function Article(article) {
   };
 
   const onDeleteComment = () => {
-    // console.log(commentToDelete.creation);
     try {
       axios
         .put(
@@ -102,6 +104,7 @@ function Article(article) {
         dataArticle,
         {
           headers: {
+            Accept: "application/json",
             "Content-Type": "multipart/form-data",
             authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -136,7 +139,7 @@ function Article(article) {
           <img
             src={
               article.user.profilePicture !== ""
-                ? article.user.profilePicture
+                ? `${usersImgUrl}` + article.user.profilePicture
                 : { profileImage }
             }
             className="user-avatar"
@@ -253,7 +256,11 @@ function Article(article) {
               ) : (
                 <>
                   <div className="new-img-preview">
-                    <img src={article.imageUrl} className="new-image" alt="" />
+                    <img
+                      src={`${postsImgUrl}` + article.imageUrl}
+                      className="new-image"
+                      alt=""
+                    />
                   </div>
                 </>
               )}
@@ -297,7 +304,11 @@ function Article(article) {
         ) : (
           <>
             <h3 className="post-description">{article.description}</h3>
-            <img src={article.imageUrl} className="img-post" alt="" />
+            <img
+              src={`${postsImgUrl}` + article.imageUrl}
+              className="img-post"
+              alt=""
+            />
             <div className="post-icons">
               <div>
                 {isLiked ? (
@@ -328,7 +339,6 @@ function Article(article) {
                   {article.comments.length} Commentaires
                 </span>
               </div>
-              {/* <i className="fa-regular fa-lg fa-paper-plane"></i> */}
             </div>
             {comment !== false ? (
               <>
@@ -341,7 +351,7 @@ function Article(article) {
                       <img
                         src={
                           comment.userProfilePicture !== ""
-                            ? comment.userProfilePicture
+                            ? `${usersImgUrl}` + comment.userProfilePicture
                             : profileImage
                         }
                         className="user-avatar"

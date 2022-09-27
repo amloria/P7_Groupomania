@@ -4,6 +4,8 @@ import axios from "axios";
 import "../styles/CreateArticle.css";
 import profileImage from "../assets/user-avatar.webp";
 
+const usersImgUrl = process.env.REACT_APP_USERS_IMG_URL;
+
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function CreateArticle() {
@@ -19,6 +21,7 @@ function CreateArticle() {
     axios
       .post(`http://localhost:3000/api/articles`, dataArticle, {
         headers: {
+          Accept: "application/json",
           "Content-Type": "multipart/form-data",
           authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -37,7 +40,7 @@ function CreateArticle() {
         <img
           src={
             currentUser.profilePicture !== ""
-              ? currentUser.profilePicture
+              ? `${usersImgUrl}` + currentUser.profilePicture
               : profileImage
           }
           className="user-avatar"
@@ -65,7 +68,7 @@ function CreateArticle() {
         <img
           src={
             currentUser.profilePicture !== ""
-              ? currentUser.profilePicture
+              ? `${usersImgUrl}` + currentUser.profilePicture
               : profileImage
           }
           className="user-avatar"

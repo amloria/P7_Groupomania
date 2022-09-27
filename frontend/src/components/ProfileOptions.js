@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
+const usersImgUrl = process.env.REACT_APP_USERS_IMG_URL;
+
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function ProfileOptions() {
@@ -27,6 +29,7 @@ function ProfileOptions() {
           dataUser,
           {
             headers: {
+              Accept: "application/json",
               "Content-Type": "multipart/form-data",
               authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -71,7 +74,7 @@ function ProfileOptions() {
             className="profile-image"
             src={
               currentUser.profilePicture !== ""
-                ? currentUser.profilePicture
+                ? `${usersImgUrl}` + currentUser.profilePicture
                 : profileImage
             }
             alt=""

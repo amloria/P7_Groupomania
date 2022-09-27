@@ -3,6 +3,8 @@ import "../styles/Profile.css";
 import coverImage from "../assets/teamwork-groupomania.webp";
 import profileImage from "../assets/user-avatar.webp";
 
+const usersImgUrl = process.env.REACT_APP_USERS_IMG_URL;
+
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function Profile() {
@@ -25,7 +27,7 @@ function Profile() {
             className="profile-image"
             src={
               currentUser.profilePicture !== ""
-                ? currentUser.profilePicture
+                ? `${usersImgUrl}` + currentUser.profilePicture
                 : profileImage
             }
             alt=""

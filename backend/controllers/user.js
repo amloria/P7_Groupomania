@@ -97,8 +97,8 @@ exports.login = (req, res, next) => {
 
 exports.profile = (req, res, next) => {
   User.findOne({ _id: req.auth.userId })
-    .then((user) => {
-      res.status(200).json(user);
+    .then(() => {
+      res.status(200).json({ message: "Authorized" });
     })
     .catch((error) => {
       res.status(400).json({ error });
@@ -109,40 +109,36 @@ exports.modifyUser = (req, res, next) => {
   const dataUser = req.file
     ? {
         ...req.body,
-        profilePicture: `${req.protocol}://${req.get("host")}/images/users/${
-          req.file.filename
-        }`,
-        // coverPicture: `${req.protocol}://${req.get("host")}/images/${
-        //   req.file.filename
-        // }`,
+        profilePicture: req.file.filename,
       }
     : { ...req.body };
-
-  // console.log(dataUser);
 
   User.findOne({ _id: req.params.id })
     .then((user) => {
       if (user._id != req.auth.userId && !req.auth.isAdmin) {
         res.status(403).json({ message: "Not authorized" });
-      } else {
-        if (user.profilePicture !== req.file.filename) {
-          const filename = user.profilePicture.split("/images/users/")[1];
-          fs.unlink(`images/users/${filename}`, () => {});
-        }
-        User.updateOne(
-          { _id: req.params.id },
-          {
-            ...dataUser,
-            // _id: req.params.id,
-          }
-        )
-          .then(() =>
-            res
-              .status(200)
-              .json({ message: "Updated successfully!", userUpdate: dataUser })
-          )
-          .catch((error) => res.status(401).json({ error }));
       }
+      if (req.file != undefined) {
+        const filename = user.profilePicture;
+        fs.unlink(`images/users/${filename}`, () => {
+          console.log("File deleted");
+        });
+      } else {
+        dataUser.profilePicture = user.profilePicture;
+      }
+      User.updateOne(
+        { _id: req.params.id },
+        {
+          ...dataUser,
+          // _id: req.params.id,
+        }
+      )
+        .then(() =>
+          res
+            .status(200)
+            .json({ message: "Updated successfully!", userUpdate: dataUser })
+        )
+        .catch((error) => res.status(401).json({ error }));
     })
     .catch((error) => {
       res.status(400).json({ error });
