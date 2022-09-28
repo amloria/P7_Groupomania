@@ -88,7 +88,9 @@ function Login() {
               </button>
             </div>
             {errorMessage ? (
-              <span className="error-message">Paire identifiant/mot de passe incorrecte</span>
+              <span className="error-message">
+                Paire identifiant/mot de passe incorrecte
+              </span>
             ) : null}
             <div className="line">Première visite sur l'app ?</div>
             <div>

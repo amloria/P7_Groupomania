@@ -1,35 +1,46 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 function PrivateRoutes() {
-  const auth = () => {
-    try {
-      axios
-        .get(`http://localhost:3000/api/auth/profile/${currentUser._id}`, {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          return <Outlet />;
-        })
-        .catch(function (err) {
-          console.error(`Retour du serveur : ${err}`);
-          return <Navigate to="/login" replace />;
-        });
-    } catch (err) {
-      console.error(
-        `Retour du serveur : "NOT AUTHORIZED! PLEASE LOG IN TO ACCESS THIS PAGE."`
-      );
-      return <Navigate to="/login" replace />;
+  const [isLoading, setIsLoading] = useState(true);
+  const [userAuth, setUserAuth] = useState(false);
+
+  let navigate = useNavigate();
+
+  const auth = async () => {
+    if (!currentUser) {
+      navigate("/notfound", { replace: true });
     }
+    await axios
+      .get(`http://localhost:3000/api/auth/profile/${currentUser._id}`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setUserAuth(true);
+        setIsLoading(false);        
+      })
+      .catch(function (err) {
+        console.error(`Retour du serveur : ${err}`);
+        setUserAuth(false);
+        navigate("/notfound", { replace: true });
+      });
   };
 
-  // return auth ? <Outlet /> : <Navigate to="/login" replace />;
-  return auth();
+  useEffect(() => {
+    auth();
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <div className="loader loader-spin">Loading...</div>;
+  }
+
+  return userAuth ? <Outlet /> : <Navigate to="/notfound" replace />;
 }
 
 export default PrivateRoutes;

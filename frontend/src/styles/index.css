@@ -34,7 +34,7 @@ a {
     }
     .profile-container {
       position: sticky;
-      top: 75px
+      top: 74px
     }
     .new-post, .new-post-container, .article-post {
       margin: 15px 15px;
@@ -61,3 +61,4 @@ a {
     width: calc(100% / 7.5);
   }
 }
+

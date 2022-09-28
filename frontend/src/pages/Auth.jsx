@@ -6,6 +6,7 @@ import Signup from "../components/Signup";
 import Feed from "../pages/Feed";
 import PrivateRoutes from "../components/PrivateRoutes";
 import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound"
 
 
 function Auth() {
@@ -13,12 +14,13 @@ function Auth() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Signup />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          <Route exact path="login" element={<Login />} />
+          <Route exact path="signup" element={<Signup />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="feed" element={<Feed />} />
-            <Route path="profile" element={<Profile />} />
+            <Route exact path="feed" element={<Feed />} />
+            <Route exact path="profile" element={<Profile />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     );

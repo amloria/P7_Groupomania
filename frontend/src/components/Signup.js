@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Form.css";
-import { /*useNavigate,*/ Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 import Banner from "./Banner";
 import Login from "./Login";
@@ -8,8 +8,6 @@ import Footer from "./Footer";
 import FormInput from "./FormInput";
 
 function Signup() {
-  // let navigate = useNavigate();
-
   const [success, setSuccess] = useState(false);
 
   const [formValues, setFormValues] = useState({
@@ -97,40 +95,10 @@ function Signup() {
       })
       .then(() => {
         setSuccess(true);
-        // navigate("/login", { replace: true });
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
       });
-
-    // const data = new FormData(e.target);
-
-    // console.log(Object.fromEntries(data.entries()));
-
-    // fetch("http://localhost:3000/api/auth/signup", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name: data.get("name"),
-    //     lastName: data.get("lastName"),
-    //     email: data.get("email"),
-    //     password: data.get("password"),
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then(function (apiData) {
-    //     if (apiData.ok) {
-    //       return apiData.json();
-    //     }
-    //   })
-    //   .then(() => {
-    //     setSuccess(true);
-    //     // navigate("/login", { replace: true });
-    //   })
-    //   .catch(function (err) {
-    //     console.error(`Retour du serveur : ${err}`);
-    //   });
   }
 
   return (
@@ -148,46 +116,6 @@ function Signup() {
                 ></FormInput>
               </div>
             ))}
-            {/* <div>
-              <input
-                type="text"
-                name="name"   
-                id="name"
-                placeholder="Prénom"
-                aria-label="Prénom"
-                required
-              ></input>
-            </div>
-            <div>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Nom de famille"
-                aria-label="Nom de famille"
-                required
-              ></input>
-            </div>
-            <div>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                placeholder="Adresse e-mail"
-                aria-label="Adresse e-mail"
-                required
-              ></input>
-            </div>
-            <div>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Mot de passe"
-                aria-label="Mot de passe"
-                required
-              ></input>
-            </div> */}
             <div>
               <button name="signup" type="submit" id="signup">
                 S'inscrire
