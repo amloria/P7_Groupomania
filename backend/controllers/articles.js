@@ -75,7 +75,6 @@ exports.modifyArticle = (req, res, next) => {
         { _id: req.params.id },
         {
           ...articleObject,
-          // _id: req.params.id,
         }
       )
         .then(res.status(200).json({ message: "Updated successfully!" }))

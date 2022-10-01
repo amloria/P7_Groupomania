@@ -130,7 +130,6 @@ exports.modifyUser = (req, res, next) => {
         { _id: req.params.id },
         {
           ...dataUser,
-          // _id: req.params.id,
         }
       )
         .then(() =>

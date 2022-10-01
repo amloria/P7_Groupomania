@@ -12,7 +12,7 @@ function Header() {
     navigate("/", { replace: true });
   };
 
-  const monCompte = () => {
+  const myProfile = () => {
     navigate("/profile", { replace: true });
   };
 
@@ -47,7 +47,7 @@ function Header() {
                 </button>
                 <button
                   className="header-menu-option"
-                  onClick={monCompte}
+                  onClick={myProfile}
                   title="Mon compte"
                 >
                   <i className="fa-solid fa-lg fa-user"></i>

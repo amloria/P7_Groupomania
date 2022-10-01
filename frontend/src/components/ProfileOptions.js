@@ -141,16 +141,6 @@ function ProfileOptions() {
                   accept="image/jpeg, image/jpg, image/png"
                 ></input>
               </div>
-              {/* <div className="select-new-image">
-                <label>Photo de couverture</label>
-                <input
-                  id="file"
-                  name="coverImage"
-                  className=""
-                  type="file"
-                  accept="image/jpeg, image/jpg, image/png"
-                ></input>
-              </div> */}
               <div>
                 <button
                   className="btn-save"

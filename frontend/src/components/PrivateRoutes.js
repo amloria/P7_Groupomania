@@ -20,8 +20,7 @@ function PrivateRoutes() {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then((res) => {
-        // console.log(res);
+      .then(() => {
         setUserAuth(true);
         setIsLoading(false);
       })
@@ -48,10 +47,3 @@ function PrivateRoutes() {
 }
 
 export default PrivateRoutes;
-
-// image modif(ok)
-// maj localStorage (ok)
-// private routes (ok)
-// file name db (ok)
-
-// change reloads into useEffects

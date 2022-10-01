@@ -7,7 +7,7 @@ const articleSchema = mongoose.Schema(
     imageUrl: { type: String, default: "" },
     likes: { type: Number, default: 0 },
     usersLiked: [{ type: String }],
-    comments: [{}, { timestamps: true }],
+    comments: [{}],
     keyRef: { type: String },
   },
   { timestamps: true }
