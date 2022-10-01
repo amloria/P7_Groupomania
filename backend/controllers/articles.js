@@ -2,12 +2,17 @@ const Article = require("../models/Article");
 const fs = require("fs");
 
 exports.createArticle = (req, res, next) => {
+  if (!req.file) {
+    req.file = "";
+  }
   const article = new Article({
     ...req.body,
+    description: req.body.description,
     userId: req.auth.userId,
     imageUrl: req.file.filename,
     keyRef: req.auth.keyRef,
   });
+
   article
     .save()
     .then(() => {

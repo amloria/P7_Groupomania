@@ -21,9 +21,9 @@ function PrivateRoutes() {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUserAuth(true);
-        setIsLoading(false);        
+        setIsLoading(false);
       })
       .catch(function (err) {
         console.error(`Retour du serveur : ${err}`);
@@ -32,9 +32,13 @@ function PrivateRoutes() {
       });
   };
 
-  useEffect(() => {
-    auth();
-  }, [isLoading]);
+  useEffect(
+    () => {
+      auth();
+    },
+    // eslint-disable-next-line
+    [isLoading]
+  );
 
   if (isLoading) {
     return <div className="loader loader-spin">Loading...</div>;
@@ -47,5 +51,7 @@ export default PrivateRoutes;
 
 // image modif(ok)
 // maj localStorage (ok)
-// private routes 2nd*   working on it !
+// private routes (ok)
 // file name db (ok)
+
+// change reloads into useEffects

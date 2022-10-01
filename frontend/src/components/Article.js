@@ -257,7 +257,11 @@ function Article(article) {
                 <>
                   <div className="new-img-preview">
                     <img
-                      src={`${postsImgUrl}` + article.imageUrl}
+                      src={
+                        article.imageUrl !== ""
+                          ? `${postsImgUrl}` + article.imageUrl
+                          : null
+                      }
                       className="new-image"
                       alt=""
                     />
@@ -305,7 +309,11 @@ function Article(article) {
           <>
             <h3 className="post-description">{article.description}</h3>
             <img
-              src={`${postsImgUrl}` + article.imageUrl}
+              src={
+                article.imageUrl !== ""
+                  ? `${postsImgUrl}` + article.imageUrl
+                  : null
+              }
               className="img-post"
               alt=""
             />
